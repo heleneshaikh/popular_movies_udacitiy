@@ -2,6 +2,7 @@ package com.hfad.popularmovies;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,8 +50,7 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder
         Movie movie = movieList.get(position);
 
         Picasso.with(context)
-                .load(movie.getPoster_path())
-                .resize(120, 60)
+                .load("https://image.tmdb.org/t/p/w185/" + movie.getPoster_path())
                 .into(holder.imageView);
     }
 
@@ -58,7 +58,6 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder
     public int getItemCount() {
         return (movieList.isEmpty() ? 0 : movieList.size());
     }
-
 
 
 }
