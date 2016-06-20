@@ -26,6 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class TopRatedFragment extends Fragment {
 
     private static final String ENDPOINT = "http://api.themoviedb.org/3/";
+    private static final String API_KEY = "561825fba9c2d42683bcbbd5b12dbd1e";
     private PosterAdapter adapter;
     private List<Movie> movieList;
 
@@ -53,22 +54,19 @@ public class TopRatedFragment extends Fragment {
                 .build();
         MoviesAPI api = retrofit.create(MoviesAPI.class);
         movieList = new ArrayList<>();
-        api.getFeedTopRated().enqueue(new Callback<List<Movie>>() {
+        api.getFeedTopRated(API_KEY).enqueue(new Callback<List<Movie>>() {
             @Override
             public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
                 movieList = response.body();
                 adapter.setMovieList(movieList);
-        }
+            }
 
-        @Override
-        public void onFailure (Call < List < Movie >> call, Throwable t){
-            Toast toast = Toast.makeText(getActivity(), "unavailable", Toast.LENGTH_SHORT);
-            toast.show();
-        }
+            @Override
+            public void onFailure (Call <List<Movie>> call, Throwable t){
+                Toast toast = Toast.makeText(getActivity(), "unavailable", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
     }
-
-    );
-
-}
 
 }

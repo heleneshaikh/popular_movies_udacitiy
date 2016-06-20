@@ -3,15 +3,15 @@ package com.hfad.popularmovies;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public interface MoviesAPI {
 
-    @GET("movie/top_rated?api_key=XXXXXXXXXXXXXXX")
-    Call<List<Movie>> getFeedTopRated();
+    @GET("movie/top_rated")
+    Call<List<Movie>> getFeedTopRated(@Query("api_key") String apiKey);
 
-    @GET("movie/popular?api_key=XXXXXXXXXXXXXXX")
-    Call<List<Movie>> getFeedPopular();
+    @GET("movie/popular")
+    Call<List<Movie>> getFeedPopular(@Query("api_key") String apiKey);
 
 }

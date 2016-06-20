@@ -26,6 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class PopularFragment extends Fragment {
     private static final String ENDPOINT = "http://api.themoviedb.org/3/";
+    private static final String API_KEY = "561825fba9c2d42683bcbbd5b12dbd1e";
     List<Movie> movieList;
     private PosterAdapter adapter;
 
@@ -53,13 +54,11 @@ public class PopularFragment extends Fragment {
                 .build();
         movieList = new ArrayList<>();
         MoviesAPI api = retrofit.create(MoviesAPI.class);
-        api.getFeedPopular().enqueue(new Callback<List<Movie>>() {
+        api.getFeedPopular(API_KEY).enqueue(new Callback<List<Movie>>() {
             @Override
             public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
                 movieList = response.body();
-                for (Movie movie : movieList) {
-                    adapter.setMovieList(movieList);
-                }
+                adapter.setMovieList(movieList);
             }
 
             @Override
