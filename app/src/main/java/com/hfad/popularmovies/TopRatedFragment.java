@@ -54,15 +54,16 @@ public class TopRatedFragment extends Fragment {
                 .build();
         MoviesAPI api = retrofit.create(MoviesAPI.class);
         movieList = new ArrayList<>();
-        api.getFeedTopRated(API_KEY).enqueue(new Callback<List<Movie>>() {
+        api.getFeedTopRated(API_KEY).enqueue(new Callback<QueryResult>() {
             @Override
-            public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
-                movieList = response.body();
+            public void onResponse(Call<QueryResult> call, Response<QueryResult> response) {
+                QueryResult result = response.body();
+                movieList = result.getResults();
                 adapter.setMovieList(movieList);
             }
 
             @Override
-            public void onFailure (Call <List<Movie>> call, Throwable t){
+            public void onFailure(Call<QueryResult> call, Throwable t) {
                 Toast toast = Toast.makeText(getActivity(), "unavailable", Toast.LENGTH_SHORT);
                 toast.show();
             }

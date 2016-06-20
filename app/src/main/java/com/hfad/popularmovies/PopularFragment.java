@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,22 +53,22 @@ public class PopularFragment extends Fragment {
                 .baseUrl(ENDPOINT)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        movieList = new ArrayList<>();
         MoviesAPI api = retrofit.create(MoviesAPI.class);
-        api.getFeedPopular(API_KEY).enqueue(new Callback<List<Movie>>() {
+        movieList = new ArrayList<>();
+        api.getFeedPopular(API_KEY).enqueue(new Callback<QueryResult>() {
             @Override
-            public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
-                movieList = response.body();
+            public void onResponse(Call<QueryResult> call, Response<QueryResult> response) {
+                QueryResult result = response.body();
+                movieList = result.getResults();
                 adapter.setMovieList(movieList);
             }
 
             @Override
-            public void onFailure(Call<List<Movie>> call, Throwable t) {
+            public void onFailure(Call<QueryResult> call, Throwable t) {
                 Toast toast = Toast.makeText(getActivity(), "unavailable", Toast.LENGTH_SHORT);
                 toast.show();
             }
         });
-
     }
 
 }
