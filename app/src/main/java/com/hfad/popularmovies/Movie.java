@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class Movie {
     private String vote_average;
-    private String id;
+    private int id;
     private String overview;
     private String original_title;
     private String release_date;
@@ -23,11 +23,11 @@ public class Movie {
         this.vote_average = vote_average;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

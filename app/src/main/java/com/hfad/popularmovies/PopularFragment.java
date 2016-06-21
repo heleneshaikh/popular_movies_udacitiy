@@ -2,6 +2,7 @@ package com.hfad.popularmovies;
 
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,8 +33,6 @@ public class PopularFragment extends Fragment {
     List<Movie> movieList;
     private PosterAdapter adapter;
 
-
-
     public PopularFragment() {
     }
 
@@ -47,7 +47,14 @@ public class PopularFragment extends Fragment {
 
         getPopularMovies();
 
-
+        adapter.setListener(new PosterAdapter.Listener(){
+            @Override
+            public void onClick(int position) {
+                Intent intent = new Intent(getActivity(), DetailFragment.class);
+                intent.putExtra(DetailFragment.POSITION, position);
+                getActivity().startActivity(intent);
+            }
+        });
         return recyclerView;
     }
 

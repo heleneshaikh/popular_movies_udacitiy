@@ -1,10 +1,66 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.hfad.popularmovies.DetailFragment">
 
 
+    <!--<TextView-->
+        <!--android:id="@+id/original_title"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="150dp"-->
+        <!--android:text="New Text"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentEnd="true" />-->
+
+    <!--<ImageView-->
+        <!--android:id="@+id/details_imageView"-->
+        <!--android:layout_width="70dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:contentDescription="@string/movie_poster"-->
+        <!--android:layout_below="@+id/original_title"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_marginTop="32dp" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/release_year"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+        <!--android:text="year"-->
+        <!--android:layout_alignTop="@+id/details_imageView"-->
+        <!--android:layout_centerHorizontal="true" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/vote_average"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+        <!--android:text="Small Text"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_alignStart="@+id/release_year" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/overview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:minHeight="80dp"-->
+        <!--android:text="New Text"-->
+        <!--android:layout_below="@+id/details_imageView"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_marginTop="35dp"-->
+        <!--android:layout_alignParentEnd="true" />-->
 
 
-</FrameLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="hello"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="46dp" />
+</RelativeLayout>

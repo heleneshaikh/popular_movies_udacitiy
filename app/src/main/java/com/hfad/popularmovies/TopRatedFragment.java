@@ -1,10 +1,12 @@
 package com.hfad.popularmovies;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +31,8 @@ public class TopRatedFragment extends Fragment {
     private static final String API_KEY = "561825fba9c2d42683bcbbd5b12dbd1e";
     private PosterAdapter adapter;
     private List<Movie> movieList;
+    private static final String TAG = "MyActivity";
+
 
     public TopRatedFragment() {
     }
@@ -36,13 +40,26 @@ public class TopRatedFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_top_rated, container, false);
         adapter = new PosterAdapter(getActivity(), movieList);
+
         recyclerView.setAdapter(adapter);
+
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(layoutManager);
 
         getTopRatedMovies();
+
+        adapter.setListener(new PosterAdapter.Listener(){
+            @Override
+            public void onClick(int position) {
+                Log.v(TAG, "LISTENER");
+                Intent intent = new Intent(getActivity(), DetailFragment.class);
+                intent.putExtra(DetailFragment.POSITION, position);
+                getActivity().startActivity(intent);
+            }
+        });
 
         return recyclerView;
     }

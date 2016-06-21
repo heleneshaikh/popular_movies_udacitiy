@@ -2,6 +2,7 @@ package com.hfad.popularmovies;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,10 +17,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder> {
-
+class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder> {
+    private Listener listener;
     private Context context;
     private List<Movie> movieList;
+    private static final String TAG = "MyActivity";
+
+    public interface Listener {
+         void onClick(int position);
+    }
+
+    public void setListener(Listener listener) {
+        this.listener = listener;
+    }
 
     public void setMovieList(List<Movie> movieList) {
         this.movieList.clear();
@@ -38,27 +48,6 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder
         public ViewHolder(View view) {
             super(view);
             imageView = (ImageView) view.findViewById(R.id.iv_cardview);
-            imageView.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    switch (event.getAction()) {
-                        case MotionEvent.ACTION_DOWN: {
-                            ImageView view = (ImageView) v;
-                            view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
-                            view.invalidate();
-                            break;
-                        }
-                        case MotionEvent.ACTION_UP:
-                        case MotionEvent.ACTION_CANCEL: {
-                            ImageView view = (ImageView) v;
-                            view.getDrawable().clearColorFilter();
-                            view.invalidate();
-                            break;
-                        }
-                    }
-                    return true;
-                }
-            });
         }
     }
 
@@ -69,13 +58,44 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(PosterAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(PosterAdapter.ViewHolder holder, final int position) {
         Movie movie = movieList.get(position);
+        ImageView imageView = holder.imageView;
 
         Picasso.with(context)
                 .load("https://image.tmdb.org/t/p/w185/" + movie.getPoster_path())
                 .resize(180, 230)
-                .into(holder.imageView);
+                .into(imageView);
+
+        imageView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ImageView view = (ImageView) v;
+                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        view.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL: {
+                        ImageView view = (ImageView) v;
+                        view.getDrawable().clearColorFilter();
+                        view.invalidate();
+                        break;
+                    }
+                }
+                return true;
+            }
+        });
+
+        imageView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Log.v(TAG, "LISTENER");
+                listener.onClick(position);
+            }
+        });
     }
 
     @Override
