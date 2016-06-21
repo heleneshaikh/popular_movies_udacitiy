@@ -64,30 +64,29 @@ class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder> {
 
         Picasso.with(context)
                 .load("https://image.tmdb.org/t/p/w185/" + movie.getPoster_path())
-              //  .resize(180, 230)
                 .into(imageView);
 
-        imageView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN: {
-                        ImageView view = (ImageView) v;
-                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
-                        view.invalidate();
-                        break;
-                    }
-                    case MotionEvent.ACTION_UP:
-                    case MotionEvent.ACTION_CANCEL: {
-                        ImageView view = (ImageView) v;
-                        view.getDrawable().clearColorFilter();
-                        view.invalidate();
-                        break;
-                    }
-                }
-                return true;
-            }
-        });
+//        imageView.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                switch (event.getAction()) {
+//                    case MotionEvent.ACTION_DOWN: {
+//                        ImageView view = (ImageView) v;
+//                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+//                        view.invalidate();
+//                        break;
+//                    }
+//                    case MotionEvent.ACTION_UP:
+//                    case MotionEvent.ACTION_CANCEL: {
+//                        ImageView view = (ImageView) v;
+//                        view.getDrawable().clearColorFilter();
+//                        view.invalidate();
+//                        break;
+//                    }
+//                }
+//                return true;
+//            }
+//        });
 
         imageView.setOnClickListener(new View.OnClickListener(){
             @Override

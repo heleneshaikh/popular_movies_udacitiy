@@ -1,7 +1,6 @@
 package com.hfad.popularmovies;
 
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -13,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 

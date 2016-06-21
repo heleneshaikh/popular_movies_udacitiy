@@ -3,6 +3,7 @@ package com.hfad.popularmovies;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -20,9 +21,20 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        popularFragment = new PopularFragment();
-        generateTransaction(popularFragment);
-        getActionBar().setTitle(R.string.topRated);
+        if (savedInstanceState != null) {
+            title = savedInstanceState.getString("title");
+            getActionBar().setTitle(title);
+        } else {
+            popularFragment = new PopularFragment();
+            generateTransaction(popularFragment);
+            getActionBar().setTitle(getResources().getString(R.string.popular));
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("title", title);
     }
 
     @Override
@@ -63,12 +75,24 @@ public class MainActivity extends Activity {
     }
 
 
-
     private void setActionBar(String title) {
-        //TODO: AB TITLE ON UP
-        ActionBar actionBar = getActionBar();
+        final ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(title);
+        getFragmentManager().addOnBackStackChangedListener(
+                new FragmentManager.OnBackStackChangedListener() {
+                    @Override
+                    public void onBackStackChanged() {
+                        FragmentManager manager = getFragmentManager();
+                        Fragment fragment = manager.findFragmentByTag("visible_fragment");
+                        if (fragment instanceof TopRatedFragment) {
+                            actionBar.setTitle(R.string.topRated);
+                        } else if (fragment instanceof PopularFragment) {
+                            actionBar.setTitle(R.string.popular);
+                        }
+                    }
+                }
+        );
     }
 
     private void generateTransaction(Fragment fragment) {
@@ -92,6 +116,4 @@ public class MainActivity extends Activity {
     private void networkIssue() {
         Toast.makeText(this, "Network unavailable", Toast.LENGTH_LONG).show();
     }
-
-
 }
