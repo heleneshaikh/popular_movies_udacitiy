@@ -31,6 +31,8 @@ public class PopularFragment extends Fragment {
     List<Movie> movieList;
     private PosterAdapter adapter;
 
+
+
     public PopularFragment() {
     }
 

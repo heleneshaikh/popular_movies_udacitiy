@@ -17,7 +17,8 @@
             android:id="@+id/iv_cardview"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:contentDescription="@string/movie_poster"/>
+            android:contentDescription="@string/movie_poster"
+            android:clickable="true"/>
 
     </RelativeLayout>
 

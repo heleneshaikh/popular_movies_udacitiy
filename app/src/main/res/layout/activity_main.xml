@@ -7,14 +7,14 @@
     android:layout_column="2"
     tools:context=".MainActivity">
 
-    <!--DISPLAY POSTERS-->
+    <!--DISPLAY POPULAR / TOPRATED POSTERS-->
     <FrameLayout
         android:id="@+id/poster_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="fill"/>
 
-    <!--&lt;!&ndash;DETAILS SECTION &ndash;&gt;-->
+    <!-- DETAILS SECTION-->
     <!--<FrameLayout-->
         <!--android:id="@+id/detail_container"-->
         <!--android:layout_width="0dp"-->

@@ -1,7 +1,8 @@
 <resources>
     <style name="AppTheme" parent="android:Theme.Material">
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="background">@color/background</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:background">@color/background</item>
+        <item name="android:actionBarStyle">@color/colorPrimary</item>
     </style>
 </resources>
