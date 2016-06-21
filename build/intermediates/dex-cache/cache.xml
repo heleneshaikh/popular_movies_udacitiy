@@ -19,7 +19,7 @@
         jar="/Users/heleneshaikh/Documents/Android/Udacity/PopularMovies/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         revision="23.0.2"
-        sha1="86a89149edc2827a6ed1f8989750da57c3648b1e">
+        sha1="22cb17096f9260af5b200ea1816079b5f2a66511">
         <dex dex="/Users/heleneshaikh/Documents/Android/Udacity/PopularMovies/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_5e35dd8be17e486b3ea72fb4a99ceb55d88908df/classes.dex" />
     </item>
     <item
@@ -47,7 +47,7 @@
         jar="/Users/heleneshaikh/Documents/Android/Udacity/PopularMovies/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         revision="23.0.2"
-        sha1="994e1d2adafceb0e7f628b776947be59593263d5">
+        sha1="8a47cca0570212b62804e771ada445d332a42ff3">
         <dex dex="/Users/heleneshaikh/Documents/Android/Udacity/PopularMovies/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_25fdf8be6355f5faab17b303f8e975e3d459c356/classes.dex" />
     </item>
     <item

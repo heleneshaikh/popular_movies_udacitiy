@@ -48,7 +48,7 @@ public class PopularFragment extends Fragment {
         adapter.setListener(new PosterAdapter.Listener(){
             @Override
             public void onClick(int position) {
-                Intent intent = new Intent(getActivity(), DetailFragment.class);
+                Intent intent = new Intent(getActivity(), DetailsActivity.class);
                 intent.putExtra(DetailFragment.POSITION, position);
                 getActivity().startActivity(intent);
             }

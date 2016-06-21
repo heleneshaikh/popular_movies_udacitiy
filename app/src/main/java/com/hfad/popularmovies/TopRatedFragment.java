@@ -55,7 +55,7 @@ public class TopRatedFragment extends Fragment {
             @Override
             public void onClick(int position) {
                 Log.v(TAG, "LISTENER");
-                Intent intent = new Intent(getActivity(), DetailFragment.class);
+                Intent intent = new Intent(getActivity(), DetailsActivity.class);
                 intent.putExtra(DetailFragment.POSITION, position);
                 getActivity().startActivity(intent);
             }
