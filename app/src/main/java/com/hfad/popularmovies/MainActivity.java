@@ -3,10 +3,7 @@ package com.hfad.popularmovies;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -37,6 +34,9 @@ public class MainActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
             case R.id.action_list_topRated:
                 if (isOnline()) {
                     Fragment topRatedFragment = new TopRatedFragment();
@@ -46,7 +46,7 @@ public class MainActivity extends Activity {
                 } else {
                     networkIssue();
                 }
-                break;
+                return true;
             case R.id.action_list_popularity:
                 if (isOnline()) {
                     popularFragment = new PopularFragment();
@@ -56,15 +56,19 @@ public class MainActivity extends Activity {
                 } else {
                     networkIssue();
                 }
-                break;
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
+
+
     private void setActionBar(String title) {
-//        ActionBar actionBar = getActionBar();
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setTitle(title);
+        //TODO: AB TITLE ON UP
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(title);
     }
 
     private void generateTransaction(Fragment fragment) {
