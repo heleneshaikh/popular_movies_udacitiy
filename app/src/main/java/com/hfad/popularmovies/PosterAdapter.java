@@ -44,7 +44,6 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN: {
                             ImageView view = (ImageView) v;
-                            //overlay is black with transparency of 0x77 (119)
                             view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
                             view.invalidate();
                             break;
@@ -52,7 +51,6 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder
                         case MotionEvent.ACTION_UP:
                         case MotionEvent.ACTION_CANCEL: {
                             ImageView view = (ImageView) v;
-                            //clear the overlay
                             view.getDrawable().clearColorFilter();
                             view.invalidate();
                             break;
