@@ -56,7 +56,6 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder
                             break;
                         }
                     }
-
                     return true;
                 }
             });
@@ -75,6 +74,7 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder
 
         Picasso.with(context)
                 .load("https://image.tmdb.org/t/p/w185/" + movie.getPoster_path())
+                .resize(180, 230)
                 .into(holder.imageView);
     }
 
