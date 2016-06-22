@@ -28,7 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class PopularFragment extends Fragment {
     private static final String ENDPOINT = "http://api.themoviedb.org/3/";
     private static final String API_KEY = "561825fba9c2d42683bcbbd5b12dbd1e";
-    List<Movie> movieList;
+    public static List<Movie> movieList;
     private PosterAdapter adapter;
 
     public PopularFragment() {
@@ -45,14 +45,7 @@ public class PopularFragment extends Fragment {
 
         getPopularMovies();
 
-        adapter.setListener(new PosterAdapter.Listener(){
-            @Override
-            public void onClick(int position) {
-                Intent intent = new Intent(getActivity(), DetailsActivity.class);
-                intent.putExtra(DetailFragment.POSITION, position);
-                getActivity().startActivity(intent);
-            }
-        });
+
         return recyclerView;
     }
 
@@ -69,6 +62,15 @@ public class PopularFragment extends Fragment {
                 QueryResult result = response.body();
                 movieList = result.getResults();
                 adapter.setMovieList(movieList);
+                adapter.setListener(new PosterAdapter.Listener(){
+                    @Override
+                    public void onClick(int position) {
+                        Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                        intent.putExtra(DetailsActivity.POSITION, position);
+                        intent.putExtra(DetailsActivity.FRAGMENT_TYPE, "PopularFragment");
+                        getActivity().startActivity(intent);
+                    }
+                });
             }
 
             @Override

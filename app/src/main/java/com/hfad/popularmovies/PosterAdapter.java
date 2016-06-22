@@ -1,6 +1,7 @@
 package com.hfad.popularmovies;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +22,6 @@ class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder> {
     private Listener listener;
     private Context context;
     private List<Movie> movieList;
-    private static final String TAG = "MyActivity";
 
     public interface Listener {
          void onClick(int position);
@@ -91,8 +91,8 @@ class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder> {
         imageView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Log.v(TAG, "LISTENER");
                 listener.onClick(position);
+
             }
         });
     }

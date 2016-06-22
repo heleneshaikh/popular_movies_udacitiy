@@ -30,9 +30,7 @@ public class TopRatedFragment extends Fragment {
     private static final String ENDPOINT = "http://api.themoviedb.org/3/";
     private static final String API_KEY = "561825fba9c2d42683bcbbd5b12dbd1e";
     private PosterAdapter adapter;
-    private List<Movie> movieList;
-    private static final String TAG = "MyActivity";
-
+    public static List<Movie> movieList;
 
     public TopRatedFragment() {
     }
@@ -54,9 +52,9 @@ public class TopRatedFragment extends Fragment {
         adapter.setListener(new PosterAdapter.Listener(){
             @Override
             public void onClick(int position) {
-                Log.v(TAG, "LISTENER");
                 Intent intent = new Intent(getActivity(), DetailsActivity.class);
-                intent.putExtra(DetailFragment.POSITION, position);
+                intent.putExtra(DetailsActivity.POSITION, position);
+                intent.putExtra(DetailsActivity.FRAGMENT_TYPE, "TopRatedFragment");
                 getActivity().startActivity(intent);
             }
         });
