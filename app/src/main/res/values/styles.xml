@@ -1,11 +1,10 @@
 <resources>
-
-    <style name="AppTheme" parent="android:Theme.Holo.Light">
+    <style name="AppTheme" parent="android:Theme.Holo">
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
         <item name="android:textColorSecondary">@color/textColorSecondary</item>
-        <item name="android:colorBackground">@color/background</item>
+        <item name="android:colorBackground">@color/background_fragments</item>
+        <item name="android:textColorTertiary">@color/textColorSecondary</item>
     </style>
-
 </resources>
