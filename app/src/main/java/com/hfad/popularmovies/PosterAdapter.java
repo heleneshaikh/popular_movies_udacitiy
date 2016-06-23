@@ -68,13 +68,13 @@ class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder> {
                 .load("https://image.tmdb.org/t/p/w185/" + movie.getPoster_path())
                 .into(imageView);
 
-
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.onClick(position);
             }
         });
+
         imageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

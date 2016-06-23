@@ -48,7 +48,7 @@ public class MainActivity extends Activity {
             case android.R.id.home:
                 onBackPressed();
                 return true;
-            case R.id.action_list_topRated:
+            case R.id.action_topRated:
                 if (isOnline()) {
                     Fragment topRatedFragment = new TopRatedFragment();
                     generateTransaction(topRatedFragment);
@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
                     networkIssue();
                 }
                 return true;
-            case R.id.action_list_popularity:
+            case R.id.action_popular:
                 if (isOnline()) {
                     popularFragment = new PopularFragment();
                     generateTransaction(popularFragment);
@@ -71,8 +71,8 @@ public class MainActivity extends Activity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-
     }
+
     private void setActionBar(String title) {
         final ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);

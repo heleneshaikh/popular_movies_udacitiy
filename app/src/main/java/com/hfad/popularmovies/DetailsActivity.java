@@ -32,17 +32,17 @@ public class DetailsActivity extends Activity {
     }
 
     public void setData() {
-        TextView title = (TextView) findViewById(R.id.original_title);
+        TextView title = (TextView) findViewById(R.id.title);
         title.setText(movie.getOriginal_title());
-        ImageView image = (ImageView) findViewById(R.id.details_imageView);
+        ImageView image = (ImageView) findViewById(R.id.iv_details);
         Picasso.with(context)
                 .load("https://image.tmdb.org/t/p/w185/" + movie.getPoster_path())
                 .into(image);
-        TextView year = (TextView) findViewById(R.id.release_year);
+        TextView year = (TextView) findViewById(R.id.year);
         year.setText(movie.getRelease_date().substring(0, 4));
-        TextView vote = (TextView) findViewById(R.id.vote_average);
+        TextView vote = (TextView) findViewById(R.id.vote);
         vote.setText(Math.round(movie.getVote_average()) + "/10");
-        TextView review = (TextView) findViewById(R.id.overview);
+        TextView review = (TextView) findViewById(R.id.review);
         review.setText(movie.getOverview());
         setActionBar();
     }

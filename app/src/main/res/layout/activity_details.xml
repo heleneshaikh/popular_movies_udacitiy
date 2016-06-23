@@ -8,61 +8,60 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/detail_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/textColorPrimary"
         android:scrollbars="vertical"
-        tools:context="com.hfad.popularmovies.DetailsActivity">
-
+        tools:context=".DetailsActivity">
 
         <TextView
-            android:id="@+id/original_title"
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="110dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:background="#727272"
+            android:background="@color/dark_background"
             android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="43sp" />
 
         <ImageView
-            android:id="@+id/details_imageView"
+            android:id="@+id/iv_details"
             android:layout_width="140dp"
             android:layout_height="170dp"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/original_title"
+            android:layout_below="@+id/title"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="22dp"
             android:contentDescription="@string/movie_poster" />
 
         <TextView
-            android:id="@+id/release_year"
+            android:id="@+id/year"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/details_imageView"
+            android:layout_alignTop="@+id/iv_details"
             android:layout_marginLeft="40dp"
-            android:layout_toRightOf="@id/details_imageView"
+            android:layout_toRightOf="@id/iv_details"
             android:textSize="40sp" />
 
         <TextView
-            android:id="@+id/vote_average"
+            android:id="@+id/vote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/release_year"
-            android:layout_below="@+id/release_year"
+            android:layout_alignLeft="@id/year"
+            android:layout_below="@+id/year"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="32dp"
-            android:layout_toEndOf="@+id/release_year"
+            android:layout_toEndOf="@+id/year"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/overview"
+            android:id="@+id/review"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/details_imageView"
+            android:layout_below="@+id/iv_details"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="35dp"
             android:layout_marginRight="2dp"
@@ -74,8 +73,8 @@
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/details_imageView"
-            android:layout_alignStart="@+id/release_year"
+            android:layout_alignBottom="@+id/iv_details"
+            android:layout_alignStart="@+id/year"
             android:minWidth="60dp"
             android:textAlignment="center"
             android:background="@color/colorPrimary"
