@@ -24,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class PopularFragment extends Fragment {
     private static final String ENDPOINT = "http://api.themoviedb.org/3/";
-    private static final String API_KEY = "561825fba9c2d42683bcbbd5b12dbd1e";
+    private static final String API_KEY = "XXXXXXX";
     public static List<Movie> movieList;
     private PosterAdapter adapter;
 
