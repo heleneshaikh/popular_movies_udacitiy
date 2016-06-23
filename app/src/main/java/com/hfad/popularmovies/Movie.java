@@ -1,13 +1,15 @@
 package com.hfad.popularmovies;
 
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
  * Created by heleneshaikh on 15/06/16.
  */
 public class Movie {
-    private String vote_average;
+    private double vote_average;
     private int id;
     private String overview;
     private String original_title;
@@ -15,11 +17,11 @@ public class Movie {
     private String poster_path;
     private String popularity;
 
-    public String getVote_average() {
+    public double getVote_average() {
         return vote_average;
     }
 
-    public void setVote_average(String vote_average) {
+    public void setVote_average(double vote_average) {
         this.vote_average = vote_average;
     }
 

@@ -1,20 +1,20 @@
 package com.hfad.popularmovies;
 
+import android.app.ActionBar;
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.squareup.picasso.Picasso;
 
-import java.util.List;
 
 public class DetailsActivity extends Activity {
     static final String POSITION = "position";
     static final String FRAGMENT_TYPE = "fragment";
     private Movie movie;
     private int position;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,16 +32,25 @@ public class DetailsActivity extends Activity {
     }
 
     public void setData() {
-        TextView original_title = (TextView) findViewById(R.id.original_title);
-        original_title.setText(movie.getOriginal_title());
-        ImageView details_image = (ImageView) findViewById(R.id.details_imageView);
-        //details_image.setImageURI("https://image.tmdb.org/t/p/w185/" + movie.getPoster_path());
-        TextView release_year = (TextView) findViewById(R.id.release_year);
-        release_year.setText(movie.getRelease_date());
-        TextView vote_average = (TextView) findViewById(R.id.vote_average);
-        vote_average.setText(movie.getVote_average());
-        TextView overview = (TextView) findViewById(R.id.overview);
-        overview.setText(movie.getOverview());
+        TextView title = (TextView) findViewById(R.id.original_title);
+        title.setText(movie.getOriginal_title());
+        ImageView image = (ImageView) findViewById(R.id.details_imageView);
+        Picasso.with(context)
+                .load("https://image.tmdb.org/t/p/w185/" + movie.getPoster_path())
+                .into(image);
+        TextView year = (TextView) findViewById(R.id.release_year);
+        year.setText(movie.getRelease_date().substring(0, 4));
+        TextView vote = (TextView) findViewById(R.id.vote_average);
+        vote.setText(Math.round(movie.getVote_average()) + "/10");
+        TextView review = (TextView) findViewById(R.id.overview);
+        review.setText(movie.getOverview());
+        setActionBar();
+    }
+
+    private void setActionBar() {
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(movie.getOriginal_title());
     }
 }
 

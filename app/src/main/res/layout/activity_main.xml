@@ -7,7 +7,6 @@
     android:layout_column="2"
     tools:context=".MainActivity">
 
-    <!--DISPLAY POPULAR / TOPRATED POSTERS-->
     <FrameLayout
         android:id="@+id/poster_container"
         android:layout_width="match_parent"

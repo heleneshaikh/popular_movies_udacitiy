@@ -27,7 +27,6 @@ public class MainActivity extends Activity {
         } else {
             popularFragment = new PopularFragment();
             generateTransaction(popularFragment);
-            getActionBar().setTitle(getResources().getString(R.string.popular));
         }
     }
 
@@ -72,9 +71,8 @@ public class MainActivity extends Activity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+
     }
-
-
     private void setActionBar(String title) {
         final ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);

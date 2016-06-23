@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -24,7 +25,7 @@ class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder> {
     private List<Movie> movieList;
 
     public interface Listener {
-         void onClick(int position);
+        void onClick(int position);
     }
 
     public void setListener(Listener listener) {
@@ -45,6 +46,7 @@ class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView imageView;
 
+
         public ViewHolder(View view) {
             super(view);
             imageView = (ImageView) view.findViewById(R.id.iv_cardview);
@@ -60,39 +62,39 @@ class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(PosterAdapter.ViewHolder holder, final int position) {
         Movie movie = movieList.get(position);
-        ImageView imageView = holder.imageView;
+        final ImageView imageView = holder.imageView;
 
         Picasso.with(context)
                 .load("https://image.tmdb.org/t/p/w185/" + movie.getPoster_path())
                 .into(imageView);
 
-//        imageView.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                switch (event.getAction()) {
-//                    case MotionEvent.ACTION_DOWN: {
-//                        ImageView view = (ImageView) v;
-//                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
-//                        view.invalidate();
-//                        break;
-//                    }
-//                    case MotionEvent.ACTION_UP:
-//                    case MotionEvent.ACTION_CANCEL: {
-//                        ImageView view = (ImageView) v;
-//                        view.getDrawable().clearColorFilter();
-//                        view.invalidate();
-//                        break;
-//                    }
-//                }
-//                return true;
-//            }
-//        });
 
-        imageView.setOnClickListener(new View.OnClickListener(){
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.onClick(position);
-
+            }
+        });
+        imageView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ImageView view = (ImageView) v;
+                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        view.invalidate();
+                        return true;
+                    }
+                    case MotionEvent.ACTION_UP:
+                        imageView.performClick();
+                    case MotionEvent.ACTION_CANCEL: {
+                        ImageView view = (ImageView) v;
+                        view.getDrawable().clearColorFilter();
+                        view.invalidate();
+                        break;
+                    }
+                }
+                return true;
             }
         });
     }
@@ -101,6 +103,4 @@ class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder> {
     public int getItemCount() {
         return (movieList.isEmpty() ? 0 : movieList.size());
     }
-
-
 }

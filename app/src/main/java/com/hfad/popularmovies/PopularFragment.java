@@ -37,6 +37,8 @@ public class PopularFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        getActivity().getActionBar().setTitle(R.string.popular);
+
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_popular, container, false);
         adapter = new PosterAdapter(getActivity(), movieList);
         recyclerView.setAdapter(adapter);
@@ -44,7 +46,6 @@ public class PopularFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         getPopularMovies();
-
 
         return recyclerView;
     }

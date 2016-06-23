@@ -5,7 +5,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
         <item name="android:textColorSecondary">@color/textColorSecondary</item>
-        <item name="android:colorBackground">#727272</item>
+        <item name="android:colorBackground">@color/background</item>
     </style>
 
 </resources>
