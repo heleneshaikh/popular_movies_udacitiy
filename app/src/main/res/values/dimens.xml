@@ -4,4 +4,5 @@
     <dimen name="image_width">180dp</dimen>
     <dimen name="image_height">230dp</dimen>
     <dimen name="cards_margin">3dp</dimen>
+    <dimen name="trailer_icon">70dp</dimen>
 </resources>
