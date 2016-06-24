@@ -93,6 +93,7 @@ public class DetailsActivity extends Activity {
                 String trailerKey = trailerList.iterator().next().getKey();
                 String videoPath = "https://www.youtube.com/watch?v=" + trailerKey;
 
+                //REVIEWER: If the Youtube app is not installed on the device, the user gets to choose between a browser or youtube
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(videoPath));
                 startActivity(intent);
             }
