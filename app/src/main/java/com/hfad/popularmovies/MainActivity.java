@@ -8,6 +8,7 @@ import android.app.FragmentTransaction;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
     private Fragment popularFragment;
     String title;
+    private static final String TAG = "app";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,13 @@ public class MainActivity extends Activity {
                     networkIssue();
                 }
                 return true;
+            case R.id.action_favourites:
+                if (isOnline()) {
+                    Fragment favouriteFragment = new FavouritesFragment();
+                    generateTransaction(favouriteFragment);
+                    title = getResources().getString(R.string.favourites);
+                    setActionBar(title);
+                }
             default:
                 return super.onOptionsItemSelected(item);
         }

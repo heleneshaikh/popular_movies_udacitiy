@@ -10,6 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.hfad.popularmovies.model.Movie;
+import com.hfad.popularmovies.model.MoviesAPI;
+import com.hfad.popularmovies.model.QueryResult;
+
 import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;

@@ -64,13 +64,14 @@
             android:minWidth="60dp"
             android:textAlignment="center"
             android:background="@color/colorPrimary"
-            android:padding="5dp"
+            android:padding="@dimen/btn_padding"
             android:text="@string/button_favourite"
             android:lineSpacingExtra="2dp"
-            android:textAllCaps="true"/>
+            android:textAllCaps="true"
+            android:onClick="onClickAddFavourite"/>
 
         <TextView
-            android:id="@+id/review"
+            android:id="@+id/overview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -83,17 +84,29 @@
             android:textColor="@color/textColorSecondary"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
+        <Button
+            android:id="@+id/btn_reviews"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_reviews"
+            android:layout_below="@+id/overview"
+            android:layout_alignStart="@+id/overview"
+            android:onClick="onClickSeeReviews"
+            android:layout_marginTop="5dp"
+            android:background="@color/colorPrimary"
+            android:padding="@dimen/btn_padding"/>
+
         <TextView
             android:id="@+id/tv_trailer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/trailers"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:layout_below="@+id/review"
-            android:layout_alignStart="@+id/review"
-            android:textColor="@color/textColorSecondary"/>
+            android:layout_marginTop="59dp"
+            android:textColor="@color/textColorSecondary"
+            android:layout_below="@+id/overview"
+            android:layout_alignStart="@+id/overview" />
 
         <!--change colour of icon-->
         <ImageView
@@ -101,9 +114,12 @@
             android:layout_width="@dimen/trailer_icon"
             android:layout_height="@dimen/trailer_icon"
             android:src="@drawable/ic_ondemand_video_black_24dp"
+            android:onClick="onClickViewTrailer"
             android:layout_below="@+id/tv_trailer"
-            android:layout_alignStart="@+id/tv_trailer"
-            android:onClick="onClickViewTrailer"/>
+            android:layout_alignStart="@+id/tv_trailer" />
+
+
+
 
     </RelativeLayout>
 </ScrollView>
