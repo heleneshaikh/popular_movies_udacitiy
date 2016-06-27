@@ -20,6 +20,7 @@ import com.hfad.popularmovies.model.Trailer;
 import com.hfad.popularmovies.model.TrailersResult;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -128,23 +129,19 @@ public class DetailsActivity extends Activity {
             @Override
             public void onResponse(Call<ReviewResult> call, Response<ReviewResult> response) {
                 ReviewResult reviewResult = response.body();
-//                int totalResults;
-//                totalResults = Integer.parseInt(reviewResult.getTotal_results());
                 reviewList = reviewResult.getResults();
+                Intent intent = new Intent(DetailsActivity.this, ReviewsActivity.class);
                 String review = reviewList.iterator().next().getContent();
                 String author = reviewList.iterator().next().getAuthor();
-                Intent intent = new Intent(DetailsActivity.this, ReviewsActivity.class);
                 intent.putExtra(ReviewsActivity.REVIEW, review);
                 intent.putExtra(ReviewsActivity.AUTHOR, author);
                 intent.putExtra(ReviewsActivity.TITLE, movieTitle);
-//                intent.putExtra(ReviewsActivity.TOTAL_RESULTS, totalResults);
                 startActivity(intent);
             }
 
             @Override
             public void onFailure(Call<ReviewResult> call, Throwable t) {
-                Toast toast = Toast.makeText(context, "an error occurred", Toast.LENGTH_LONG);
-                toast.show();
+
             }
         });
     }

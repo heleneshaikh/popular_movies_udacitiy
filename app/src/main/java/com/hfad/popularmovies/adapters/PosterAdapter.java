@@ -1,4 +1,4 @@
-package com.hfad.popularmovies;
+package com.hfad.popularmovies.adapters;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.hfad.popularmovies.R;
 import com.hfad.popularmovies.model.Movie;
 import com.squareup.picasso.Picasso;
 
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder> {
+public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder> {
     private Listener listener;
     private Context context;
     private List<Movie> movieList;
