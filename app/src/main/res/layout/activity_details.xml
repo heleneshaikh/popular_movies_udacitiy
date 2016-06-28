@@ -117,9 +117,5 @@
             android:onClick="onClickViewTrailer"
             android:layout_below="@+id/tv_trailer"
             android:layout_alignStart="@+id/tv_trailer" />
-
-
-
-
     </RelativeLayout>
 </ScrollView>

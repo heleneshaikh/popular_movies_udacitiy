@@ -2,16 +2,18 @@ package com.hfad.popularmovies;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.hfad.popularmovies.database.MovieDatabaseHelper;
 import com.hfad.popularmovies.model.Movie;
 import com.hfad.popularmovies.model.MoviesAPI;
 import com.hfad.popularmovies.model.Review;
@@ -19,16 +21,14 @@ import com.hfad.popularmovies.model.ReviewResult;
 import com.hfad.popularmovies.model.Trailer;
 import com.hfad.popularmovies.model.TrailersResult;
 import com.squareup.picasso.Picasso;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+//http://api.themoviedb.org/3/movie/293660/reviews?api_key=561825fba9c2d42683bcbbd5b12dbd1e
 
 
 public class DetailsActivity extends Activity {
@@ -42,7 +42,7 @@ public class DetailsActivity extends Activity {
     int id;
     private final static String RESULT_TAG = "tag";
     public static List<Trailer> trailerList;
-    public static List<Review> reviewList;
+    public static ArrayList<Review> reviewList;
     String movieTitle;
 
     @Override
@@ -114,36 +114,31 @@ public class DetailsActivity extends Activity {
     }
 
     public void onClickAddFavourite(View view) {
-
+        //write to DB
+        Toast toast = Toast.makeText(this, "added to favourites", Toast.LENGTH_LONG);
+        toast.show();
+        try {
+            MovieDatabaseHelper dbHelper = new MovieDatabaseHelper(this);
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("MOVIE_ID", id);
+            contentValues.put("VOTE_AVERAGE", movie.getVote_average());
+            contentValues.put("OVERVIEW", movie.getOverview());
+            contentValues.put("ORIGINAL_TITLE", movie.getOriginal_title());
+            contentValues.put("RELEASE_DATE", movie.getRelease_date());
+            contentValues.put("POSTER_PATH", movie.getPoster_path());
+            contentValues.put("POPULARITY", movie.getPopularity());
+            db.insert("MOVIE", null, contentValues);
+        } catch (SQLiteException e) {
+            Toast toast2 = Toast.makeText(context, "Database unavailable", Toast.LENGTH_LONG);
+            toast2.show();
+        }
     }
-//http://api.themoviedb.org/3/movie/293660/reviews?api_key=561825fba9c2d42683bcbbd5b12dbd1e
 
     public void onClickSeeReviews(View view) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ENDPOINT)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        MoviesAPI api = retrofit.create(MoviesAPI.class);
-        reviewList = new ArrayList<>();
-        api.getReview(id, API_KEY).enqueue(new Callback<ReviewResult>() {
-            @Override
-            public void onResponse(Call<ReviewResult> call, Response<ReviewResult> response) {
-                ReviewResult reviewResult = response.body();
-                reviewList = reviewResult.getResults();
-                Intent intent = new Intent(DetailsActivity.this, ReviewsActivity.class);
-                String review = reviewList.iterator().next().getContent();
-                String author = reviewList.iterator().next().getAuthor();
-                intent.putExtra(ReviewsActivity.REVIEW, review);
-                intent.putExtra(ReviewsActivity.AUTHOR, author);
-                intent.putExtra(ReviewsActivity.TITLE, movieTitle);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onFailure(Call<ReviewResult> call, Throwable t) {
-
-            }
-        });
+        Intent intent = new Intent(DetailsActivity.this, ReviewsActivity.class);
+        intent.putExtra(ReviewsActivity.ID, id);
+        startActivity(intent);
     }
 }
 
