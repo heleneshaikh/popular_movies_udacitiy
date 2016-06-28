@@ -1,6 +1,7 @@
 package com.hfad.popularmovies;
 
 
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -21,6 +22,7 @@ import com.squareup.picasso.Picasso;
  * A simple {@link Fragment} subclass.
  */
 public class FavouritesFragment extends Fragment {
+    Context context;
     //read from DB
 
     public FavouritesFragment() {
@@ -32,9 +34,10 @@ public class FavouritesFragment extends Fragment {
         try {
             MovieDatabaseHelper dbHelper = new MovieDatabaseHelper(getActivity());
             SQLiteDatabase db = dbHelper.getReadableDatabase();
+
             Cursor cursor = db.query("MOVIE",
                     new String[]{"MOVIE_ID", "VOTE_AVERAGE", "OVERVIEW", "ORIGINAL_TITLE",
-                            "RELEASE_DATE", "POSTER_PATH", "POPULARITY"},
+                            "RELEASE_DATE", "POSTER_PATH"},
                     null, null, null, null, "ORIGINAL_TITLE ASC");
 
             if (cursor.moveToFirst()) {
@@ -44,19 +47,35 @@ public class FavouritesFragment extends Fragment {
                 String original_title = cursor.getString(3);
                 String release_date = cursor.getString(4);
                 String poster_path = cursor.getString(5);
-                String popularity = cursor.getString(6);
 
                 View view = getView();
+
                 TextView title = (TextView) view.findViewById(R.id.title);
-                title.setText(original_title);
+                if (title != null) {
+                    title.setText(original_title);
+                }
+
                 ImageView image = (ImageView) view.findViewById(R.id.iv_details);
+                if (image != null) {
+                    Picasso.with(context)
+                            .load("https://image.tmdb.org/t/p/w185/" + poster_path)
+                            .into(image);
+                }
 
                 TextView year = (TextView) view.findViewById(R.id.year);
-                year.setText(release_date.substring(0, 4));
+                if (year != null) {
+                    year.setText(release_date.substring(0, 4));
+                }
+
                 TextView vote = (TextView) view.findViewById(R.id.vote);
-                vote.setText(vote_average + "/10");
+                if (vote != null) {
+                    vote.setText(vote_average + "/10");
+                }
+
                 TextView overviews = (TextView) view.findViewById(R.id.overview);
-                overviews.setText(overview);
+                if (overviews != null) {
+                    overviews.setText(overview);
+                }
             }
             cursor.close();
             db.close();

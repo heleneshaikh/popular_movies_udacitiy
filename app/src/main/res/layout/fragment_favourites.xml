@@ -54,21 +54,6 @@
             android:layout_toEndOf="@+id/year"
             android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/iv_details"
-            android:layout_alignStart="@+id/year"
-            android:minWidth="60dp"
-            android:textAlignment="center"
-            android:background="@color/colorPrimary"
-            android:padding="@dimen/btn_padding"
-            android:text="@string/button_favourite"
-            android:lineSpacingExtra="2dp"
-            android:textAllCaps="true"
-            android:onClick="onClickAddFavourite"/>
-
         <TextView
             android:id="@+id/overview"
             android:layout_width="match_parent"

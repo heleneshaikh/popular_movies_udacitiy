@@ -7,12 +7,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.hfad.popularmovies.database.MovieDatabaseHelper;
 import com.hfad.popularmovies.model.Movie;
 import com.hfad.popularmovies.model.MoviesAPI;
@@ -21,8 +23,10 @@ import com.hfad.popularmovies.model.ReviewResult;
 import com.hfad.popularmovies.model.Trailer;
 import com.hfad.popularmovies.model.TrailersResult;
 import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,6 +48,8 @@ public class DetailsActivity extends Activity {
     public static List<Trailer> trailerList;
     public static ArrayList<Review> reviewList;
     String movieTitle;
+    SQLiteDatabase db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +79,7 @@ public class DetailsActivity extends Activity {
         TextView year = (TextView) findViewById(R.id.year);
         year.setText(movie.getRelease_date().substring(0, 4));
         TextView vote = (TextView) findViewById(R.id.vote);
-        double averageVote = Math.round(movie.getVote_average()*10)/10d;
+        double averageVote = Math.round(movie.getVote_average() * 10) / 10d;
         vote.setText(Double.toString(averageVote));
         vote.append("/10");
         TextView overview = (TextView) findViewById(R.id.overview);
@@ -116,25 +122,29 @@ public class DetailsActivity extends Activity {
     }
 
     public void onClickAddFavourite(View view) {
-        //write to DB
+        /*write to DB
         Toast toast = Toast.makeText(this, "added to favourites", Toast.LENGTH_LONG);
         toast.show();
-        try {
-            MovieDatabaseHelper dbHelper = new MovieDatabaseHelper(this);
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
-            ContentValues contentValues = new ContentValues();
-            contentValues.put("MOVIE_ID", id);
-            contentValues.put("VOTE_AVERAGE", movie.getVote_average());
-            contentValues.put("OVERVIEW", movie.getOverview());
-            contentValues.put("ORIGINAL_TITLE", movie.getOriginal_title());
-            contentValues.put("RELEASE_DATE", movie.getRelease_date());
-            contentValues.put("POSTER_PATH", movie.getPoster_path());
-            contentValues.put("POPULARITY", movie.getPopularity());
-            db.insert("MOVIE", null, contentValues);
-        } catch (SQLiteException e) {
-            Toast toast2 = Toast.makeText(context, "Database unavailable", Toast.LENGTH_LONG);
-            toast2.show();
-        }
+         try {
+         */
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("MOVIE_ID", id);
+        contentValues.put("VOTE_AVERAGE", movie.getVote_average());
+        contentValues.put("OVERVIEW", movie.getOverview());
+        contentValues.put("ORIGINAL_TITLE", movie.getOriginal_title());
+        contentValues.put("RELEASE_DATE", movie.getRelease_date());
+        contentValues.put("POSTER_PATH", movie.getPoster_path());
+
+        SQLiteOpenHelper movieDatabaseHelper = new MovieDatabaseHelper(this);
+        SQLiteDatabase db = movieDatabaseHelper.getWritableDatabase();
+        db.insert("MOVIE", null, contentValues);
+
+
+//        } catch (SQLiteException e) {
+//            Toast toast2 = Toast.makeText(context, "Database unavailable", Toast.LENGTH_LONG);
+//            toast2.show();
+//        }
     }
 
     public void onClickSeeReviews(View view) {
