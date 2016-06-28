@@ -73,7 +73,9 @@ public class DetailsActivity extends Activity {
         TextView year = (TextView) findViewById(R.id.year);
         year.setText(movie.getRelease_date().substring(0, 4));
         TextView vote = (TextView) findViewById(R.id.vote);
-        vote.setText(movie.getVote_average() + "/10");
+        double averageVote = Math.round(movie.getVote_average()*10)/10d;
+        vote.setText(Double.toString(averageVote));
+        vote.append("/10");
         TextView overview = (TextView) findViewById(R.id.overview);
         overview.setText(movie.getOverview());
 

@@ -49,6 +49,8 @@ public class MainActivity extends Activity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
+                popularFragment = new PopularFragment();
+                generateTransaction(popularFragment);
                 return true;
             case R.id.action_topRated:
                 if (isOnline()) {
@@ -86,6 +88,7 @@ public class MainActivity extends Activity {
         final ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(title);
+        actionBar.setDisplayUseLogoEnabled(true);
         getFragmentManager().addOnBackStackChangedListener(
                 new FragmentManager.OnBackStackChangedListener() {
                     @Override
