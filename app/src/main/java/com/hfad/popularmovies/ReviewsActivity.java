@@ -34,7 +34,7 @@ public class ReviewsActivity extends Activity {
         adapter = new ReviewAdapter(this, reviewList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-
+        recyclerView.setAdapter(adapter);
         id = getIntent().getExtras().getInt(ID);
 
         getReviews();

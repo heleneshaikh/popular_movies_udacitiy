@@ -74,7 +74,7 @@ public class MainActivity extends Activity {
                 return true;
             case R.id.action_favourites:
                 if (isOnline()) {
-                    Fragment favouriteFragment = new FavouritesFragment();
+                    Fragment favouriteFragment = new FavouriteFragment();
                     generateTransaction(favouriteFragment);
                     title = getResources().getString(R.string.favourites);
                     setActionBar(title);

@@ -2,31 +2,23 @@ package com.hfad.popularmovies;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.hfad.popularmovies.database.MovieDatabaseHelper;
 import com.hfad.popularmovies.model.Movie;
 import com.hfad.popularmovies.model.MoviesAPI;
 import com.hfad.popularmovies.model.Review;
-import com.hfad.popularmovies.model.ReviewResult;
 import com.hfad.popularmovies.model.Trailer;
 import com.hfad.popularmovies.model.TrailersResult;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,7 +40,6 @@ public class DetailsActivity extends Activity {
     public static List<Trailer> trailerList;
     public static ArrayList<Review> reviewList;
     String movieTitle;
-    SQLiteDatabase db;
 
 
     @Override
@@ -122,29 +113,7 @@ public class DetailsActivity extends Activity {
     }
 
     public void onClickAddFavourite(View view) {
-        /*write to DB
-        Toast toast = Toast.makeText(this, "added to favourites", Toast.LENGTH_LONG);
-        toast.show();
-         try {
-         */
 
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("MOVIE_ID", id);
-        contentValues.put("VOTE_AVERAGE", movie.getVote_average());
-        contentValues.put("OVERVIEW", movie.getOverview());
-        contentValues.put("ORIGINAL_TITLE", movie.getOriginal_title());
-        contentValues.put("RELEASE_DATE", movie.getRelease_date());
-        contentValues.put("POSTER_PATH", movie.getPoster_path());
-
-        SQLiteOpenHelper movieDatabaseHelper = new MovieDatabaseHelper(this);
-        SQLiteDatabase db = movieDatabaseHelper.getWritableDatabase();
-        db.insert("MOVIE", null, contentValues);
-
-
-//        } catch (SQLiteException e) {
-//            Toast toast2 = Toast.makeText(context, "Database unavailable", Toast.LENGTH_LONG);
-//            toast2.show();
-//        }
     }
 
     public void onClickSeeReviews(View view) {
