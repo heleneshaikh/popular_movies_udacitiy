@@ -44,7 +44,6 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView imageView;
 
-
         public ViewHolder(View view) {
             super(view);
             imageView = (ImageView) view.findViewById(R.id.iv_cardview);

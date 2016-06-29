@@ -11,17 +11,23 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
     private Fragment popularFragment;
     String title;
-    private static final String TAG = "app";
+    boolean isDualPane;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        View detailContainer = findViewById(R.id.detail_container);
+        if (detailContainer != null && detailContainer.getVisibility() == View.VISIBLE) {
+            isDualPane = true;
+        }
 
         if (savedInstanceState != null) {
             title = savedInstanceState.getString("title");
@@ -79,6 +85,7 @@ public class MainActivity extends Activity {
                     title = getResources().getString(R.string.favourites);
                     setActionBar(title);
                 }
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -98,6 +105,8 @@ public class MainActivity extends Activity {
                             actionBar.setTitle(R.string.topRated);
                         } else if (fragment instanceof PopularFragment) {
                             actionBar.setTitle(R.string.popular);
+                        } else {
+                            actionBar.setTitle(R.string.favourites);
                         }
                     }
                 }

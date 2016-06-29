@@ -61,7 +61,6 @@ public class TopRatedFragment extends Fragment {
                 getActivity().startActivity(intent);
             }
         });
-
         return recyclerView;
     }
 
