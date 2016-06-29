@@ -1,8 +1,10 @@
 package com.hfad.popularmovies.adapters;
 
 import android.content.Context;
+import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +18,10 @@ import java.util.List;
 
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder> {
+    private static final String TAG = "app";
     private ArrayList<Review> reviewList;
     private Context context;
+    TextView tvReview;
 
     public void setReviewList(ArrayList<Review> movieList) {
         this.reviewList.clear();
@@ -49,7 +53,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
     public void onBindViewHolder(ReviewAdapter.ViewHolder holder, int position) {
         CardView cardView = holder.cardView;
         Review review = reviewList.get(position);
-        TextView tvReview = (TextView) cardView.findViewById(R.id.tv_review);
+        tvReview = (TextView) cardView.findViewById(R.id.tv_review);
         tvReview.setText(review.getContent());
         TextView tvAuthor = (TextView) cardView.findViewById(R.id.tv_author);
         tvAuthor.setText(review.getAuthor());
@@ -57,7 +61,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return reviewList.isEmpty()? 0 : reviewList.size();
+        return reviewList.isEmpty() ? 0 : reviewList.size();
     }
 
 

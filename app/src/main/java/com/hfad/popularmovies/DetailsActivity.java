@@ -24,8 +24,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-//http://api.themoviedb.org/3/movie/293660/reviews?api_key=561825fba9c2d42683bcbbd5b12dbd1e
-
 
 public class DetailsActivity extends Activity {
     private static final String ENDPOINT = "http://api.themoviedb.org/3/";
@@ -33,20 +31,16 @@ public class DetailsActivity extends Activity {
     static final String POSITION = "position";
     static final String FRAGMENT_TYPE = "fragment";
     private Movie movie;
-    private int position;
     private Context context;
     int id;
-    private final static String RESULT_TAG = "tag";
     public static List<Trailer> trailerList;
-    public static ArrayList<Review> reviewList;
     String movieTitle;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
-        position = (int) getIntent().getExtras().get(POSITION);
+        int position = (int) getIntent().getExtras().get(POSITION);
         String fragmentType = getIntent().getStringExtra(FRAGMENT_TYPE);
         if (fragmentType.equals("PopularFragment")) {
             movie = PopularFragment.movieList.get(position);
@@ -118,6 +112,7 @@ public class DetailsActivity extends Activity {
 
     public void onClickSeeReviews(View view) {
         Intent intent = new Intent(DetailsActivity.this, ReviewsActivity.class);
+        intent.putExtra(ReviewsActivity.TITLE, movieTitle);
         intent.putExtra(ReviewsActivity.ID, id);
         startActivity(intent);
     }
