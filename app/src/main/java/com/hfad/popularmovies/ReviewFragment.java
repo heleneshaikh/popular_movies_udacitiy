@@ -1,5 +1,6 @@
 package com.hfad.popularmovies;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ReviewFragment extends Fragment implements View.OnClickListener{
+public class ReviewFragment extends Fragment {
     private ReviewAdapter adapter;
     private static final String ENDPOINT = "http://api.themoviedb.org/3/";
     private static final String API_KEY = "561825fba9c2d42683bcbbd5b12dbd1e";
@@ -27,7 +28,7 @@ public class ReviewFragment extends Fragment implements View.OnClickListener{
     int id;
     String movieTitle;
     public static ArrayList<Review> reviewList;
-    private static final String TAG = "app";
+    public static final String LIST = "";
 
     public ReviewFragment() {
     }
@@ -41,16 +42,25 @@ public class ReviewFragment extends Fragment implements View.OnClickListener{
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
+        if (MainActivity.isDualPane) {
+            Bundle bundle = this.getArguments();
+            reviewList = bundle.getParcelableArrayList(LIST);
+        } else {
+            reviewList = getActivity().getIntent().getParcelableArrayListExtra(LIST);
+        }
+        adapter.setReviewList(reviewList);
+
+        setActionBar();
+
         return recyclerView;
     }
 
-    @Override
-    public void onClick(View v) {
-
+    private void setActionBar() {
+        ActionBar actionBar = getActivity().getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(movieTitle);
     }
-
-//    public void onClickSeeReviews(View view) {
-//
-//    }
-
 }
+
+
+

@@ -2,11 +2,13 @@ package com.hfad.popularmovies;
 
 
 import android.app.ActionBar;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,8 @@ import android.widget.Toast;
 import com.hfad.popularmovies.adapters.ReviewAdapter;
 import com.hfad.popularmovies.model.Movie;
 import com.hfad.popularmovies.model.MoviesAPI;
+import com.hfad.popularmovies.model.Review;
+import com.hfad.popularmovies.model.ReviewResult;
 import com.hfad.popularmovies.model.Trailer;
 import com.hfad.popularmovies.model.TrailersResult;
 import com.squareup.picasso.Picasso;
@@ -41,10 +45,13 @@ public class DetailFragment extends Fragment implements View.OnClickListener{
     private static final String API_KEY = "561825fba9c2d42683bcbbd5b12dbd1e";
     static final String POSITION = "position";
     static final String FRAGMENT_TYPE = "fragment";
+    private static final String TAG = "app";
+    private static final String TAG2 = "app2";
     private Movie movie;
     private Context context;
     int id;
     public static List<Trailer> trailerList;
+    public static ArrayList<Review> reviewList;
     String movieTitle;
     int position;
     String fragmentType;
@@ -80,6 +87,9 @@ public class DetailFragment extends Fragment implements View.OnClickListener{
         ImageView imageView = (ImageView) scrollView.findViewById(R.id.iv_trailer);
         imageView.setOnClickListener(this);
 
+        Button button = (Button) scrollView.findViewById(R.id.btn_reviews);
+        button.setOnClickListener(this);
+
         return scrollView;
     }
 
@@ -109,44 +119,75 @@ public class DetailFragment extends Fragment implements View.OnClickListener{
         actionBar.setTitle(movie.getOriginal_title());
     }
 
-
-    @Override
+    @Override //24665
     public void onClick(View v) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ENDPOINT)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        MoviesAPI api = retrofit.create(MoviesAPI.class);
-        trailerList = new ArrayList<>();
-        api.getTrailers(id, API_KEY).enqueue(new Callback<TrailersResult>() {
-            @Override
-            public void onResponse(Call<TrailersResult> call, Response<TrailersResult> response) {
-                TrailersResult trailersResult = response.body();
-                trailerList = trailersResult.getResults();
-                String trailerKey = trailerList.iterator().next().getKey();
-                String videoPath = "https://www.youtube.com/watch?v=" + trailerKey;
+        switch (v.getId()) {
+            case R.id.iv_trailer: //2131492956
+//                Log.v(TAG, Integer.toString(R.id.iv_trailer));
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(ENDPOINT)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                MoviesAPI api = retrofit.create(MoviesAPI.class);
+                trailerList = new ArrayList<>();
+                api.getTrailers(id, API_KEY).enqueue(new Callback<TrailersResult>() {
+                    @Override
+                    public void onResponse(Call<TrailersResult> call, Response<TrailersResult> response) {
+                        TrailersResult trailersResult = response.body();
+                        trailerList = trailersResult.getResults();
+                        String trailerKey = trailerList.iterator().next().getKey();
+                        String videoPath = "https://www.youtube.com/watch?v=" + trailerKey;
 
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(videoPath));
-                startActivity(intent);
-            }
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(videoPath));
+                        startActivity(intent);
+                    }
 
-            @Override
-            public void onFailure(Call<TrailersResult> call, Throwable t) {
-                Toast toast = Toast.makeText(context, "an error occurred", Toast.LENGTH_LONG);
-                toast.show();
-            }
-        });
+                    @Override
+                    public void onFailure(Call<TrailersResult> call, Throwable t) {
+                        Toast toast = Toast.makeText(context, "an error occurred", Toast.LENGTH_LONG);
+                        toast.show();
+                    }
+                });
+                break;
+
+            case R.id.btn_reviews: //2131492954
+                Log.v(TAG, Integer.toString(R.id.btn_reviews));
+                retrofit = new Retrofit.Builder()
+                        .baseUrl(ENDPOINT)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api = retrofit.create(MoviesAPI.class);
+                reviewList = new ArrayList<>();
+                api.getReview(id, API_KEY).enqueue(new Callback<ReviewResult>() {
+                    @Override
+                    public void onResponse(Call<ReviewResult> call, Response<ReviewResult> response) {
+                        ReviewResult reviewResult = response.body();
+                        reviewList = (ArrayList<Review>) reviewResult.getResults();
+                        if (reviewList.size() > 0) {
+                            if (MainActivity.isDualPane) {
+                                Bundle bundle = new Bundle();
+                                bundle.putParcelableArrayList(ReviewFragment.LIST, reviewList);
+                                ReviewFragment reviewFragment = new ReviewFragment();
+                                reviewFragment.setArguments(bundle);
+                                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                                transaction.addToBackStack(null);
+                                transaction.replace(R.id.right_container, reviewFragment);
+                                transaction.commit();
+                            } else {
+                                Intent intent = new Intent(getActivity(), ReviewsActivity.class);
+                                intent.putParcelableArrayListExtra(ReviewsActivity.LIST, reviewList);
+                                startActivity(intent);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ReviewResult> call, Throwable t) {
+
+                    }
+                });
+                break;
+        }
     }
-
-//    public void onClickAddFavourite(View view) {
-//
-//    }
-
-//    public void onClickSeeReviews(View view) {
-//        Intent intent = new Intent(DetailsActivity.this, ReviewsActivity.class);
-//        intent.putExtra(ReviewsActivity.TITLE, movieTitle);
-//        intent.putExtra(ReviewsActivity.ID, id);
-//        startActivity(intent);
-//    }
-
 }
