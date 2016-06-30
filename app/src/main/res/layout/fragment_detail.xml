@@ -114,7 +114,6 @@
             android:layout_width="@dimen/trailer_icon"
             android:layout_height="@dimen/trailer_icon"
             android:src="@drawable/ic_ondemand_video_black_24dp"
-            android:onClick="onClickViewTrailer"
             android:layout_below="@+id/tv_trailer"
             android:layout_alignStart="@+id/tv_trailer"
             android:layout_marginBottom="15dp"/>

@@ -10,12 +10,14 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hfad.popularmovies.adapters.ReviewAdapter;
 import com.hfad.popularmovies.model.Movie;
 import com.hfad.popularmovies.model.MoviesAPI;
 import com.hfad.popularmovies.model.Trailer;
@@ -34,7 +36,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DetailFragment extends Fragment {
+public class DetailFragment extends Fragment implements View.OnClickListener{
     private static final String ENDPOINT = "http://api.themoviedb.org/3/";
     private static final String API_KEY = "561825fba9c2d42683bcbbd5b12dbd1e";
     static final String POSITION = "position";
@@ -74,6 +76,10 @@ public class DetailFragment extends Fragment {
                 setData(scrollView);
             }
         }
+
+        ImageView imageView = (ImageView) scrollView.findViewById(R.id.iv_trailer);
+        imageView.setOnClickListener(this);
+
         return scrollView;
     }
 
@@ -103,7 +109,9 @@ public class DetailFragment extends Fragment {
         actionBar.setTitle(movie.getOriginal_title());
     }
 
-    public void onClickViewTrailer(View view) {
+
+    @Override
+    public void onClick(View v) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ENDPOINT)
                 .addConverterFactory(GsonConverterFactory.create())

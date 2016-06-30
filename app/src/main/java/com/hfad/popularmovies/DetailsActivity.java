@@ -30,18 +30,19 @@ public class DetailsActivity extends Activity {
         }
     }
 
-    public void onClickViewTrailer(View view) {
-        DetailFragment detailFragment = new DetailFragment();
-        detailFragment.onClickViewTrailer(view);
-    }
-
     public void onClickAddFavourite(View view) {
 
     }
 
-    public void onClickSeeReviews(View view) {
-       DetailFragment detailFragment = new DetailFragment();
+
+//    public void onClickSeeReviews(View view) {
+//        if (MainActivity.isDualPane) {
+//            ReviewFragment reviewFragment = new ReviewFragment();
+//            reviewFragment.onClickSeeReviews(view);
+//        } else {
+//
+//        }
 //        detailFragment.onClickSeeReviews(view);
-    }
+//    }
 }
 
