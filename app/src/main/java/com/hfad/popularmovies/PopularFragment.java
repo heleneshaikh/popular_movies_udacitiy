@@ -1,6 +1,7 @@
 package com.hfad.popularmovies;
 
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -69,10 +70,26 @@ public class PopularFragment extends Fragment {
                 adapter.setListener(new PosterAdapter.Listener(){
                     @Override
                     public void onClick(int position) {
-                        Intent intent = new Intent(getActivity(), DetailsActivity.class);
-                        intent.putExtra(DetailsActivity.POSITION, position);
-                        intent.putExtra(DetailsActivity.FRAGMENT_TYPE, "PopularFragment");
-                        getActivity().startActivity(intent);
+                        if (MainActivity.isDualPane) {
+                            //if tablet
+                            Bundle bundle = new Bundle();
+                            bundle.putInt(DetailFragment.POSITION, position);
+                            bundle.putString(DetailFragment.FRAGMENT_TYPE, "PopularFragment");
+                            Fragment detailFragment = new DetailFragment();
+                            detailFragment.setArguments(bundle);
+
+                            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                            transaction.addToBackStack(null);
+                            transaction.replace(R.id.right_container, detailFragment);
+                            transaction.commit();
+                        } else {
+                            //if phone
+                            Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                            intent.putExtra(DetailFragment.POSITION, position);
+                            intent.putExtra(DetailFragment.FRAGMENT_TYPE, "PopularFragment");
+                            getActivity().startActivity(intent);
+                        }
                     }
                 });
             }

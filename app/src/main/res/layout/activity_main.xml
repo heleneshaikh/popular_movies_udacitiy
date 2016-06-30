@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <FrameLayout
-        android:id="@+id/poster_container"
+        android:id="@+id/left_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="fill"/>

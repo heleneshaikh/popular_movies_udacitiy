@@ -1,11 +1,13 @@
 package com.hfad.popularmovies;
 
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +34,7 @@ public class TopRatedFragment extends Fragment {
 
     private static final String ENDPOINT = "http://api.themoviedb.org/3/";
     private static final String API_KEY = "561825fba9c2d42683bcbbd5b12dbd1e";
+    private static final String TAG = "app";
     private PosterAdapter adapter;
     public static List<Movie> movieList;
 
@@ -39,7 +42,7 @@ public class TopRatedFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_top_rated, container, false);
@@ -55,10 +58,26 @@ public class TopRatedFragment extends Fragment {
         adapter.setListener(new PosterAdapter.Listener(){
             @Override
             public void onClick(int position) {
-                Intent intent = new Intent(getActivity(), DetailsActivity.class);
-                intent.putExtra(DetailsActivity.POSITION, position);
-                intent.putExtra(DetailsActivity.FRAGMENT_TYPE, "TopRatedFragment");
-                getActivity().startActivity(intent);
+                if (MainActivity.isDualPane) {
+                    //if tablet
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(DetailFragment.POSITION, position);
+                    bundle.putString(DetailFragment.FRAGMENT_TYPE, "TopRatedFragment");
+                    Fragment detailFragment = new DetailFragment();
+                    detailFragment.setArguments(bundle);
+
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                    transaction.addToBackStack(null);
+                    transaction.replace(R.id.right_container, detailFragment);
+                    transaction.commit();
+                } else {
+                    //if phone
+                    Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                    intent.putExtra(DetailFragment.POSITION, position);
+                    intent.putExtra(DetailFragment.FRAGMENT_TYPE, "TopRatedFragment");
+                    getActivity().startActivity(intent);
+                }
             }
         });
         return recyclerView;

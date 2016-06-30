@@ -8,7 +8,6 @@ import android.app.FragmentTransaction;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,14 +16,14 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
     private Fragment popularFragment;
     String title;
-    boolean isDualPane;
+    public static boolean isDualPane;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        View detailContainer = findViewById(R.id.detail_container);
+        View detailContainer = findViewById(R.id.right_container);
         if (detailContainer != null && detailContainer.getVisibility() == View.VISIBLE) {
             isDualPane = true;
         }
@@ -115,7 +114,7 @@ public class MainActivity extends Activity {
 
     private void generateTransaction(Fragment fragment) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.poster_container, fragment, "visible_fragment");
+        transaction.replace(R.id.left_container, fragment, "visible_fragment");
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         transaction.addToBackStack(null);
         transaction.commit();
