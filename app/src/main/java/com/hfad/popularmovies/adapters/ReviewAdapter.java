@@ -51,6 +51,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ReviewAdapter.ViewHolder holder, int position) {
+        //if size is 0, doesn't go in
         CardView cardView = holder.cardView;
         Review review = reviewList.get(position);
         tvReview = (TextView) cardView.findViewById(R.id.tv_review);

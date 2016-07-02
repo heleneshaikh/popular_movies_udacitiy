@@ -2,6 +2,7 @@ package com.hfad.popularmovies;
 
 
 import android.app.ActionBar;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
@@ -40,7 +41,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DetailFragment extends Fragment implements View.OnClickListener{
+public class DetailFragment extends Fragment implements View.OnClickListener {
     private static final String ENDPOINT = "http://api.themoviedb.org/3/";
     private static final String API_KEY = "561825fba9c2d42683bcbbd5b12dbd1e";
     static final String POSITION = "position";
@@ -68,7 +69,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener{
             position = bundle.getInt(POSITION);
             fragmentType = bundle.getString(FRAGMENT_TYPE);
         } else {
-            position = (int)getActivity().getIntent().getExtras().get(POSITION);
+            position = (int) getActivity().getIntent().getExtras().get(POSITION);
             fragmentType = getActivity().getIntent().getStringExtra(FRAGMENT_TYPE);
         }
 
@@ -163,7 +164,6 @@ public class DetailFragment extends Fragment implements View.OnClickListener{
                     public void onResponse(Call<ReviewResult> call, Response<ReviewResult> response) {
                         ReviewResult reviewResult = response.body();
                         reviewList = (ArrayList<Review>) reviewResult.getResults();
-                        if (reviewList.size() > 0) {
                             if (MainActivity.isDualPane) {
                                 Bundle bundle = new Bundle();
                                 bundle.putParcelableArrayList(ReviewFragment.LIST, reviewList);
@@ -171,20 +171,22 @@ public class DetailFragment extends Fragment implements View.OnClickListener{
                                 reviewFragment.setArguments(bundle);
                                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                                transaction.replace(R.id.right_container, reviewFragment, "review_frag");
                                 transaction.addToBackStack(null);
-                                transaction.replace(R.id.right_container, reviewFragment);
                                 transaction.commit();
                             } else {
                                 Intent intent = new Intent(getActivity(), ReviewsActivity.class);
                                 intent.putParcelableArrayListExtra(ReviewsActivity.LIST, reviewList);
+                                intent.putExtra(ReviewsActivity.TITLE, movieTitle);
+                                intent.putExtra(NoReviewsActivity.TITLE, movieTitle);
                                 startActivity(intent);
                             }
                         }
-                    }
 
                     @Override
                     public void onFailure(Call<ReviewResult> call, Throwable t) {
-
+                        Toast toast = Toast.makeText(getActivity(), "an error occurred", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 });
                 break;

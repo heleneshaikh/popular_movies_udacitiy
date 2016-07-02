@@ -3,7 +3,9 @@
     android:id="@+id/review_recycler"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="vertical"
     android:background="@color/background"
+    android:scrollbars="vertical"
     android:textColor="@color/textColorSecondary"
     tools:context=".ReviewFragment" />
+
+

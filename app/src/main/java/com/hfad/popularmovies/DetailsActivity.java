@@ -24,8 +24,9 @@ public class DetailsActivity extends Activity {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.addToBackStack(null);
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        transaction.add(R.id.detail_frag_container, detailFragment);
+        transaction.replace(R.id.detail_frag_container, detailFragment);
         transaction.commit();
+        getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void onClickAddFavourite(View view) {

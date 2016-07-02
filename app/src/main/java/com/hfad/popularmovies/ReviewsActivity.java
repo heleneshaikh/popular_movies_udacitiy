@@ -30,6 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ReviewsActivity extends Activity {
     public static final String LIST = "";
     public static ArrayList<Review> reviewList;
+    final static String TITLE = "title";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,7 @@ public class ReviewsActivity extends Activity {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.addToBackStack(null);
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        transaction.add(R.id.review_frag_container, detailFragment);
+        transaction.replace(R.id.review_frag_container, detailFragment);
         transaction.commit();
     }
 }

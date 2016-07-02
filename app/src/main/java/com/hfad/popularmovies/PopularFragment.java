@@ -67,6 +67,7 @@ public class PopularFragment extends Fragment {
                 QueryResult result = response.body();
                 movieList = result.getResults();
                 adapter.setMovieList(movieList);
+
                 adapter.setListener(new PosterAdapter.Listener(){
                     @Override
                     public void onClick(int position) {

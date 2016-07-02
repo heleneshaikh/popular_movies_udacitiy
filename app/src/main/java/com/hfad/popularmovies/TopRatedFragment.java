@@ -1,6 +1,7 @@
 package com.hfad.popularmovies;
 
 
+import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
@@ -69,7 +70,7 @@ public class TopRatedFragment extends Fragment {
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
                     transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                     transaction.addToBackStack(null);
-                    transaction.replace(R.id.right_container, detailFragment);
+                    transaction.replace(R.id.right_container, detailFragment, "detail_fragment");
                     transaction.commit();
                 } else {
                     //if phone
@@ -78,6 +79,7 @@ public class TopRatedFragment extends Fragment {
                     intent.putExtra(DetailFragment.FRAGMENT_TYPE, "TopRatedFragment");
                     getActivity().startActivity(intent);
                 }
+                getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
             }
         });
         return recyclerView;
@@ -100,7 +102,7 @@ public class TopRatedFragment extends Fragment {
 
             @Override
             public void onFailure(Call<QueryResult> call, Throwable t) {
-                Toast toast = Toast.makeText(getActivity(), "unavailable", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getActivity(), "an error occurred", Toast.LENGTH_SHORT);
                 toast.show();
             }
         });
