@@ -2,10 +2,12 @@ package com.hfad.popularmovies;
 
 
 import android.app.ActionBar;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -15,12 +17,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.hfad.popularmovies.adapters.ReviewAdapter;
+import com.hfad.popularmovies.Database.MovieDatabaseHelper;
 import com.hfad.popularmovies.model.Movie;
 import com.hfad.popularmovies.model.MoviesAPI;
 import com.hfad.popularmovies.model.Review;
@@ -88,8 +89,11 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
         ImageView imageView = (ImageView) scrollView.findViewById(R.id.iv_trailer);
         imageView.setOnClickListener(this);
 
-        Button button = (Button) scrollView.findViewById(R.id.btn_reviews);
-        button.setOnClickListener(this);
+        Button reviewButton = (Button) scrollView.findViewById(R.id.btn_reviews);
+        reviewButton.setOnClickListener(this);
+
+        Button favouriteButton = (Button) scrollView.findViewById(R.id.btn_favourite);
+        favouriteButton.setOnClickListener(this);
 
         return scrollView;
     }
@@ -120,11 +124,10 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
         actionBar.setTitle(movie.getOriginal_title());
     }
 
-    @Override //24665
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_trailer: //2131492956
-//                Log.v(TAG, Integer.toString(R.id.iv_trailer));
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(ENDPOINT)
                         .addConverterFactory(GsonConverterFactory.create())
@@ -164,24 +167,24 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                     public void onResponse(Call<ReviewResult> call, Response<ReviewResult> response) {
                         ReviewResult reviewResult = response.body();
                         reviewList = (ArrayList<Review>) reviewResult.getResults();
-                            if (MainActivity.isDualPane) {
-                                Bundle bundle = new Bundle();
-                                bundle.putParcelableArrayList(ReviewFragment.LIST, reviewList);
-                                ReviewFragment reviewFragment = new ReviewFragment();
-                                reviewFragment.setArguments(bundle);
-                                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                                transaction.replace(R.id.right_container, reviewFragment, "review_frag");
-                                transaction.addToBackStack(null);
-                                transaction.commit();
-                            } else {
-                                Intent intent = new Intent(getActivity(), ReviewsActivity.class);
-                                intent.putParcelableArrayListExtra(ReviewsActivity.LIST, reviewList);
-                                intent.putExtra(ReviewsActivity.TITLE, movieTitle);
-                                intent.putExtra(NoReviewsActivity.TITLE, movieTitle);
-                                startActivity(intent);
-                            }
+                        if (MainActivity.isDualPane) {
+                            Bundle bundle = new Bundle();
+                            bundle.putParcelableArrayList(ReviewFragment.LIST, reviewList);
+                            ReviewFragment reviewFragment = new ReviewFragment();
+                            reviewFragment.setArguments(bundle);
+                            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                            transaction.replace(R.id.right_container, reviewFragment, "review_frag");
+                            transaction.addToBackStack(null);
+                            transaction.commit();
+                        } else {
+                            Intent intent = new Intent(getActivity(), ReviewsActivity.class);
+                            intent.putParcelableArrayListExtra(ReviewsActivity.LIST, reviewList);
+                            intent.putExtra(ReviewsActivity.TITLE, movieTitle);
+                            intent.putExtra(NoReviewsActivity.TITLE, movieTitle);
+                            startActivity(intent);
                         }
+                    }
 
                     @Override
                     public void onFailure(Call<ReviewResult> call, Throwable t) {
@@ -189,6 +192,20 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                         toast.show();
                     }
                 });
+                break;
+
+            case R.id.btn_favourite:
+                //ADD TO DB
+                Log.v(TAG, "database");
+                SQLiteOpenHelper dbHelper = new MovieDatabaseHelper(getActivity());
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
+                ContentValues contentValues = new ContentValues();
+                contentValues.put("OVERVIEW", movie.getOverview());
+                contentValues.put("ORIGINAL_TITLE", movie.getOriginal_title());
+                contentValues.put("RELEASE_DATE", movie.getRelease_date());
+//                contentValues.put("POSTER_PATH", movie.getPoster_path());
+                db.insert("MOVIE", null, contentValues); //correct output!
+                Log.v(TAG, contentValues + "test");
                 break;
         }
     }

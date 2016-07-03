@@ -18,5 +18,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ab_reviews">Reviews</string>
+    <string-array name="blabla">
+        <item>bla</item>
+        <item>bla</item>
+    </string-array>
 
 </resources>

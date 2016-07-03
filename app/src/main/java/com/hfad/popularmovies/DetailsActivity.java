@@ -29,9 +29,6 @@ public class DetailsActivity extends Activity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    public void onClickAddFavourite(View view) {
-
-    }
 
 }
 
