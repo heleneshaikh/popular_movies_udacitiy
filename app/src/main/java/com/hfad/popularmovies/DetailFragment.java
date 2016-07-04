@@ -73,6 +73,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         final ScrollView scrollView = (ScrollView) inflater.inflate(R.layout.fragment_detail, container, false);
 
         if (MainActivity.isDualPane) {
@@ -240,7 +241,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                 ContentValues contentValues = new ContentValues();
                 contentValues.put("MOVIE_ID", movie.getId());
                 db.insert("MOVIE", null, contentValues);
-//                db.insertWithOnConflict("MOVIE", null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+                db.insertWithOnConflict("MOVIE", null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
                 break;
         }
     }
