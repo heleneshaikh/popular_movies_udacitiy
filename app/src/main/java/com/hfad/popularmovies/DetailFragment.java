@@ -6,6 +6,8 @@ import android.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
@@ -47,16 +49,21 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     private static final String API_KEY = "561825fba9c2d42683bcbbd5b12dbd1e";
     static final String POSITION = "position";
     static final String FRAGMENT_TYPE = "fragment";
+    static final String MOVIE_ID = "movieId";
     private static final String TAG = "app";
     private static final String TAG2 = "app2";
     private Movie movie;
     private Context context;
     int id;
+    MoviesAPI api;
     public static List<Trailer> trailerList;
     public static ArrayList<Review> reviewList;
     String movieTitle;
     int position;
     String fragmentType;
+    Bundle bundle;
+    int movieId;
+    Retrofit retrofit;
 
     public DetailFragment() {
     }
@@ -64,25 +71,60 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ScrollView scrollView = (ScrollView) inflater.inflate(R.layout.fragment_detail, container, false);
+        final ScrollView scrollView = (ScrollView) inflater.inflate(R.layout.fragment_detail, container, false);
+
         if (MainActivity.isDualPane) {
-            Bundle bundle = this.getArguments();
-            position = bundle.getInt(POSITION);
+            bundle = this.getArguments();
             fragmentType = bundle.getString(FRAGMENT_TYPE);
         } else {
-            position = (int) getActivity().getIntent().getExtras().get(POSITION);
             fragmentType = getActivity().getIntent().getStringExtra(FRAGMENT_TYPE);
         }
 
         if (fragmentType != null) {
-            if (fragmentType.equals("PopularFragment")) {
-                movie = PopularFragment.movieList.get(position);
-                id = movie.getId();
-                setData(scrollView);
-            } else if (fragmentType.equals("TopRatedFragment")) {
-                movie = TopRatedFragment.movieList.get(position);
-                id = movie.getId();
-                setData(scrollView);
+            switch (fragmentType) {
+                case "PopularFragment":
+                    if (MainActivity.isDualPane) {
+                        position = bundle.getInt(POSITION);
+                    } else {
+                        position = (int) getActivity().getIntent().getExtras().get(POSITION);
+                    }
+                    movie = PopularFragment.movieList.get(position);
+                    id = movie.getId();
+                    setData(scrollView);
+                    break;
+
+                case "TopRatedFragment":
+                    if (MainActivity.isDualPane) {
+                        position = bundle.getInt(POSITION);
+                    } else {
+                        position = (int) getActivity().getIntent().getExtras().get(POSITION);
+                    }
+                    movie = TopRatedFragment.movieList.get(position);
+                    id = movie.getId();
+                    setData(scrollView);
+                    break;
+
+                case "FavouriteListFragment":
+                    if (MainActivity.isDualPane) {
+                        Bundle bundle = this.getArguments();
+                        movieId = bundle.getInt(MOVIE_ID);
+                    } else {
+                        movieId = getActivity().getIntent().getExtras().getInt(MOVIE_ID);
+                    }
+                    retrofitCall();
+                    api.getMovies(movieId, API_KEY).enqueue(new Callback<Movie>() {
+                        @Override
+                        public void onResponse(Call<Movie> call, Response<Movie> response) {
+                            movie = response.body();
+                            setData(scrollView);
+                        }
+
+                        @Override
+                        public void onFailure(Call<Movie> call, Throwable t) {
+                            Toast toast = Toast.makeText(getActivity(), R.string.error, Toast.LENGTH_LONG);
+                            toast.show();
+                        }
+                    });
             }
         }
 
@@ -128,11 +170,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_trailer: //2131492956
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(ENDPOINT)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                MoviesAPI api = retrofit.create(MoviesAPI.class);
+                retrofitCall();
                 trailerList = new ArrayList<>();
                 api.getTrailers(id, API_KEY).enqueue(new Callback<TrailersResult>() {
                     @Override
@@ -156,11 +194,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
 
             case R.id.btn_reviews: //2131492954
                 Log.v(TAG, Integer.toString(R.id.btn_reviews));
-                retrofit = new Retrofit.Builder()
-                        .baseUrl(ENDPOINT)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                api = retrofit.create(MoviesAPI.class);
+                retrofitCall();
                 reviewList = new ArrayList<>();
                 api.getReview(id, API_KEY).enqueue(new Callback<ReviewResult>() {
                     @Override
@@ -196,14 +230,23 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
 
             case R.id.btn_favourite:
                 //ADD TO DB, enkel ID opslaan.
+                long rows;
                 Toast toast = Toast.makeText(getActivity(), R.string.add_fav, Toast.LENGTH_LONG);
                 toast.show();
                 SQLiteOpenHelper dbHelper = new MovieDatabaseHelper(getActivity());
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
                 ContentValues contentValues = new ContentValues();
                 contentValues.put("MOVIE_ID", movie.getId());
-                db.insert("MOVIE", null, contentValues);
+                db.insertWithOnConflict("MOVIE", null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
                 break;
         }
+    }
+
+    public void retrofitCall() {
+        retrofit = new Retrofit.Builder()
+                .baseUrl(ENDPOINT)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        api = retrofit.create(MoviesAPI.class);
     }
 }

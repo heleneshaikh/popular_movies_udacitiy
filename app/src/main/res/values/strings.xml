@@ -17,5 +17,6 @@
     <string name="add_fav">Added to favourites</string>
     <string name="error">an error occurred</string>
     <string name="network_unavailable">Network unavailable</string>
+    <string name="already_added">Movie already added to favourites</string>
 
 </resources>

@@ -19,7 +19,7 @@ public class MovieDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE MOVIE(" +
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "MOVIE_ID INTEGER);");
+                "MOVIE_ID INTEGER UNIQUE);");
     }
 
     @Override

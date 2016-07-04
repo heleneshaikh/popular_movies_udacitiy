@@ -9,14 +9,7 @@
     <ListView
         android:id="@android:id/list"
         android:layout_width="200dp"
-        android:layout_height="200dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TEST1"
-        android:id="@+id/textView2"
-        android:layout_gravity="left|center_vertical" />
-    <!--duplicate colours-->
+        android:layout_height="200dp">
+    </ListView>
 
 </FrameLayout>
