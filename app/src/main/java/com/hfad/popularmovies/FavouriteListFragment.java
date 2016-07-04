@@ -26,6 +26,7 @@ import com.hfad.popularmovies.Database.MovieDatabaseHelper;
 public class FavouriteListFragment extends ListFragment {
     Cursor cursor;
     SQLiteDatabase db;
+    int id;
 
     //READ FROM DB
 
@@ -43,16 +44,20 @@ public class FavouriteListFragment extends ListFragment {
         super.onViewCreated(view, savedInstanceState);
 
         //surround with  catch
+        //READ FROM DB
         SQLiteOpenHelper openHelper = new MovieDatabaseHelper(getActivity());
         db = openHelper.getReadableDatabase();
         cursor = db.query("MOVIE",
-                          new String[]{"_id", "ORIGINAL_TITLE"},
+                          new String[]{"_id", "MOVIE_ID"},
                           null, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            id = cursor.getInt(1);
+        }
         CursorAdapter adapter = new SimpleCursorAdapter(
                 getActivity(),
                 android.R.layout.simple_list_item_1,
                 cursor,
-                new String[]{"ORIGINAL_TITLE"},
+                new String[]{"MOVIE_ID"},
                 new int[]{android.R.id.text1},
                 0);
 
@@ -69,6 +74,7 @@ public class FavouriteListFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
+        //Call detail fragment and retrieve data from Retrofit via DB ID
         super.onListItemClick(l, v, position, id);
         Intent intent = new Intent(getActivity(), TestActivity.class);
         startActivity(intent);

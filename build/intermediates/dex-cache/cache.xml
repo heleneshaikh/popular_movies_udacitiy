@@ -1,12 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" >
-
-    <item
-        jar="/Users/heleneshaikh/Documents/Android/Udacity/PopularMovies/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        revision="23.0.2"
-        sha1="e0204b52f0514ee2aad5416f5a70a1fc79f643dc">
-        <dex dex="/Users/heleneshaikh/Documents/Android/Udacity/PopularMovies/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_5e35dd8be17e486b3ea72fb4a99ceb55d88908df/classes.dex" />
-    </item>
-
-</items>
+<items version="2" />

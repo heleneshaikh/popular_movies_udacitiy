@@ -97,7 +97,7 @@ public class PopularFragment extends Fragment {
 
             @Override
             public void onFailure(Call<QueryResult> call, Throwable t) {
-                Toast toast = Toast.makeText(getActivity(), "unavailable", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getActivity(), R.string.error, Toast.LENGTH_SHORT);
                 toast.show();
             }
         });

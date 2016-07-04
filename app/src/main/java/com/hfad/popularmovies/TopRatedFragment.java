@@ -102,7 +102,7 @@ public class TopRatedFragment extends Fragment {
 
             @Override
             public void onFailure(Call<QueryResult> call, Throwable t) {
-                Toast toast = Toast.makeText(getActivity(), "an error occurred", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getActivity(), R.string.error, Toast.LENGTH_SHORT);
                 toast.show();
             }
         });

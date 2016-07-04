@@ -134,6 +134,6 @@ public class MainActivity extends Activity {
     }
 
     private void networkIssue() {
-        Toast.makeText(this, "Network unavailable", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.network_unavailable, Toast.LENGTH_LONG).show();
     }
 }

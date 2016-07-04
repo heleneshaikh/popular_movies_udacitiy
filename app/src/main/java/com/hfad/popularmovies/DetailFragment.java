@@ -148,7 +148,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
 
                     @Override
                     public void onFailure(Call<TrailersResult> call, Throwable t) {
-                        Toast toast = Toast.makeText(context, "an error occurred", Toast.LENGTH_LONG);
+                        Toast toast = Toast.makeText(context, R.string.error, Toast.LENGTH_LONG);
                         toast.show();
                     }
                 });
@@ -188,24 +188,21 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
 
                     @Override
                     public void onFailure(Call<ReviewResult> call, Throwable t) {
-                        Toast toast = Toast.makeText(getActivity(), "an error occurred", Toast.LENGTH_SHORT);
+                        Toast toast = Toast.makeText(getActivity(), R.string.error, Toast.LENGTH_SHORT);
                         toast.show();
                     }
                 });
                 break;
 
             case R.id.btn_favourite:
-                //ADD TO DB
-                Log.v(TAG, "database");
+                //ADD TO DB, enkel ID opslaan.
+                Toast toast = Toast.makeText(getActivity(), R.string.add_fav, Toast.LENGTH_LONG);
+                toast.show();
                 SQLiteOpenHelper dbHelper = new MovieDatabaseHelper(getActivity());
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
                 ContentValues contentValues = new ContentValues();
-                contentValues.put("OVERVIEW", movie.getOverview());
-                contentValues.put("ORIGINAL_TITLE", movie.getOriginal_title());
-                contentValues.put("RELEASE_DATE", movie.getRelease_date());
-//                contentValues.put("POSTER_PATH", movie.getPoster_path());
-                db.insert("MOVIE", null, contentValues); //correct output!
-                Log.v(TAG, contentValues + "test");
+                contentValues.put("MOVIE_ID", movie.getId());
+                db.insert("MOVIE", null, contentValues);
                 break;
         }
     }
