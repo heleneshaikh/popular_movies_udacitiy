@@ -6,6 +6,7 @@ import android.app.ListFragment;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -15,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
+
 import com.hfad.popularmovies.Database.MovieDatabaseHelper;
 
 /**
@@ -25,9 +28,9 @@ public class FavouriteListFragment extends ListFragment {
     Cursor cursor;
     SQLiteDatabase db;
     int movieId;
+    CursorAdapter adapter;
 
     //READ FROM DB
-
     public FavouriteListFragment() {
     }
 
@@ -41,23 +44,24 @@ public class FavouriteListFragment extends ListFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //surround with  catch
-        //READ FROM DB
-        SQLiteOpenHelper openHelper = new MovieDatabaseHelper(getActivity());
-        db = openHelper.getReadableDatabase();
-        cursor = db.query("MOVIE",
-                          new String[]{"_id", "MOVIE_ID"},
-                          null, null, null, null, null);
-        if (cursor.moveToFirst()) {
-            movieId = cursor.getInt(1);
+        try {
+            SQLiteOpenHelper openHelper = new MovieDatabaseHelper(getActivity());
+            db = openHelper.getReadableDatabase();
+            cursor = db.query("MOVIE",
+                    new String[]{"_id", "MOVIE_ID"},
+                    null, null, null, null, null);
+
+            adapter = new SimpleCursorAdapter(
+                    getActivity(),
+                    R.layout.listview_layout,
+                    cursor,
+                    new String[]{"MOVIE_ID"},
+                    new int[]{android.R.id.text1},
+                    0);
+        }catch (SQLiteException e) {
+            Toast toast = Toast.makeText(getActivity(), R.string.db_unavailable, Toast.LENGTH_LONG);
+            toast.show();
         }
-        CursorAdapter adapter = new SimpleCursorAdapter(
-                getActivity(),
-                R.layout.listview_layout,
-                cursor,
-                new String[]{"MOVIE_ID"},
-                new int[]{android.R.id.text1},
-                0);
         ListView listFavourites = getListView();
         listFavourites.setAdapter(adapter);
     }
@@ -71,8 +75,9 @@ public class FavouriteListFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        //Call detail fragment and retrieve data from Retrofit via DB ID
         super.onListItemClick(l, v, position, id);
+        cursor.moveToPosition(position);
+        movieId = cursor.getInt(1);
         if (MainActivity.isDualPane) {
             DetailFragment detailFragment = new DetailFragment();
             Bundle bundle = new Bundle();
