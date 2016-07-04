@@ -53,12 +53,11 @@ public class FavouriteListFragment extends ListFragment {
         }
         CursorAdapter adapter = new SimpleCursorAdapter(
                 getActivity(),
-                android.R.layout.simple_list_item_1,
+                R.layout.listview_layout,
                 cursor,
                 new String[]{"MOVIE_ID"},
                 new int[]{android.R.id.text1},
                 0);
-
         ListView listFavourites = getListView();
         listFavourites.setAdapter(adapter);
     }

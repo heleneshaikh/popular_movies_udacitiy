@@ -21,4 +21,6 @@ public class NoReviewsActivity extends Activity {
         transaction.replace(R.id.no_reviews_container, noReviewsFragment);
         transaction.commit();
     }
+
+
 }
