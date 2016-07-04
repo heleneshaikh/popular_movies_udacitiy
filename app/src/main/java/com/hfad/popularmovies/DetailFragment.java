@@ -15,6 +15,8 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -192,7 +194,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                 });
                 break;
 
-            case R.id.btn_reviews: //2131492954
+            case R.id.btn_reviews:
                 Log.v(TAG, Integer.toString(R.id.btn_reviews));
                 retrofitCall();
                 reviewList = new ArrayList<>();
@@ -248,5 +250,10 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         api = retrofit.create(MoviesAPI.class);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }
