@@ -52,7 +52,7 @@ public class FavouriteListFragment extends ListFragment {
                     null, null, null, null, null);
 
             adapter = new SimpleCursorAdapter(
-                    getActivity(),
+                    view.getContext(),
                     R.layout.listview_layout,
                     cursor,
                     new String[]{"ORIGINAL_TITLE"},
