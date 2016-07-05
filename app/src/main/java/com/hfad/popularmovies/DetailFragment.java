@@ -53,7 +53,6 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     static final String FRAGMENT_TYPE = "fragment";
     static final String MOVIE_ID = "movieId";
     private static final String TAG = "app";
-    private static final String TAG2 = "app2";
     private Movie movie;
     private Context context;
     int id;
@@ -111,8 +110,10 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                     if (MainActivity.isDualPane) {
                         Bundle bundle = this.getArguments();
                         movieId = bundle.getInt(MOVIE_ID);
+                        id = movieId;
                     } else {
                         movieId = getActivity().getIntent().getExtras().getInt(MOVIE_ID);
+                        id = movieId;
                     }
                     retrofitCall();
                     api.getMovies(movieId, API_KEY).enqueue(new Callback<Movie>() {
@@ -172,7 +173,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.iv_trailer: //2131492956
+            case R.id.iv_trailer:
                 retrofitCall();
                 trailerList = new ArrayList<>();
                 api.getTrailers(id, API_KEY).enqueue(new Callback<TrailersResult>() {
@@ -232,8 +233,6 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.btn_favourite:
-                //ADD TO DB, enkel ID opslaan.
-                long rows;
                 Toast toast = Toast.makeText(getActivity(), R.string.add_fav, Toast.LENGTH_LONG);
                 toast.show();
                 SQLiteOpenHelper dbHelper = new MovieDatabaseHelper(getActivity());
