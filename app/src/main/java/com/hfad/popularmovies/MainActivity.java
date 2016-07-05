@@ -13,6 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import butterknife.BindView;
+
 public class MainActivity extends Activity {
     private Fragment popularFragment;
     String title;
@@ -42,7 +44,6 @@ public class MainActivity extends Activity {
         super.onSaveInstanceState(outState);
         outState.putString("title", title);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
