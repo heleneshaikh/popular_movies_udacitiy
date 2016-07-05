@@ -8,4 +8,5 @@
     android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
     android:paddingStart="?android:attr/listPreferredItemPaddingStart"
     android:textAppearance="?android:attr/textAppearanceLarge"
-    android:textColor="@color/textColorSecondary" />
+    android:textColor="@color/textColorSecondary"
+    android:paddingTop="10dp"/>

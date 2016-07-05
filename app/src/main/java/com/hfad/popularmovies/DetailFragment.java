@@ -240,6 +240,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
                 ContentValues contentValues = new ContentValues();
                 contentValues.put("MOVIE_ID", movie.getId());
+                contentValues.put("ORIGINAL_TITLE", movie.getOriginal_title());
                 db.insert("MOVIE", null, contentValues);
                 db.insertWithOnConflict("MOVIE", null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
                 break;

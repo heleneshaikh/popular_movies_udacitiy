@@ -44,24 +44,24 @@ public class FavouriteListFragment extends ListFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        try {
+//        try {
             SQLiteOpenHelper openHelper = new MovieDatabaseHelper(getActivity());
             db = openHelper.getReadableDatabase();
             cursor = db.query("MOVIE",
-                    new String[]{"_id", "MOVIE_ID"},
+                    new String[]{"_id", "MOVIE_ID", "ORIGINAL_TITLE"},
                     null, null, null, null, null);
 
             adapter = new SimpleCursorAdapter(
                     getActivity(),
                     R.layout.listview_layout,
                     cursor,
-                    new String[]{"MOVIE_ID"},
+                    new String[]{"ORIGINAL_TITLE"},
                     new int[]{android.R.id.text1},
                     0);
-        }catch (SQLiteException e) {
-            Toast toast = Toast.makeText(getActivity(), R.string.db_unavailable, Toast.LENGTH_LONG);
-            toast.show();
-        }
+//        }catch (SQLiteException e) {
+//            Toast toast = Toast.makeText(getActivity(), R.string.db_unavailable, Toast.LENGTH_LONG);
+//            toast.show();
+//        }
         ListView listFavourites = getListView();
         listFavourites.setAdapter(adapter);
     }
