@@ -9,7 +9,7 @@
         android:id="@+id/detail_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/textColorPrimary"
+        android:background="#FFFFFF"
         android:scrollbars="vertical"
         tools:context="com.hfad.popularmovies.DetailFragment">
 
@@ -61,12 +61,12 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/iv_details"
             android:layout_alignStart="@+id/year"
-            android:minWidth="60dp"
-            android:textAlignment="center"
             android:background="@color/colorPrimary"
+            android:lineSpacingExtra="2dp"
+            android:minWidth="60dp"
             android:padding="@dimen/btn_padding"
             android:text="@string/button_favourite"
-            android:lineSpacingExtra="2dp"
+            android:textAlignment="center"
             android:textAllCaps="true" />
 
         <TextView
@@ -77,43 +77,43 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/iv_details"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="35dp"
             android:layout_marginRight="2dp"
+            android:layout_marginTop="35dp"
             android:gravity="start"
-            android:textColor="@color/textColorSecondary"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/textColorSecondary" />
 
         <Button
             android:id="@+id/btn_reviews"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tv_reviews"
-            android:layout_below="@+id/overview"
             android:layout_alignStart="@+id/overview"
+            android:layout_below="@+id/overview"
             android:layout_marginTop="5dp"
             android:background="@color/colorPrimary"
-            android:padding="@dimen/btn_padding"/>
+            android:padding="@dimen/btn_padding"
+            android:text="@string/tv_reviews" />
 
         <TextView
             android:id="@+id/tv_trailer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/trailers"
-            android:layout_marginTop="59dp"
-            android:textColor="@color/textColorSecondary"
+            android:layout_alignStart="@+id/overview"
             android:layout_below="@+id/overview"
-            android:layout_alignStart="@+id/overview" />
+            android:layout_marginTop="59dp"
+            android:text="@string/trailers"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/textColorSecondary" />
 
         <!--change colour of icon-->
         <ImageView
             android:id="@+id/iv_trailer"
             android:layout_width="@dimen/trailer_icon"
             android:layout_height="@dimen/trailer_icon"
-            android:src="@drawable/ic_ondemand_video_black_24dp"
-            android:layout_below="@+id/tv_trailer"
             android:layout_alignStart="@+id/tv_trailer"
-            android:layout_marginBottom="15dp"/>
+            android:layout_below="@+id/tv_trailer"
+            android:layout_marginBottom="15dp"
+            android:src="@drawable/ic_ondemand_video_black_24dp" />
     </RelativeLayout>
 </ScrollView>

@@ -2,7 +2,6 @@
     <style name="AppTheme" parent="android:Theme.Material">
         <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:colorPrimary">@color/holo_primary</item>
-        <item name="android:textColorPrimary">@color/textColorPrimary</item>
         <item name="android:textColorSecondary">@color/textColorSecondary</item>
         <item name="android:colorBackground">@color/dark_background</item>
         <item name="android:textColorTertiary">@color/textColorSecondary</item>
