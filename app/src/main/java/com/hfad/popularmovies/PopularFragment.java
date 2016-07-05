@@ -72,7 +72,6 @@ public class PopularFragment extends Fragment {
                     @Override
                     public void onClick(int position) {
                         if (MainActivity.isDualPane) {
-                            //if tablet
                             Bundle bundle = new Bundle();
                             bundle.putInt(DetailFragment.POSITION, position);
                             bundle.putString(DetailFragment.FRAGMENT_TYPE, "PopularFragment");
@@ -85,7 +84,6 @@ public class PopularFragment extends Fragment {
                             transaction.replace(R.id.right_container, detailFragment);
                             transaction.commit();
                         } else {
-                            //if phone
                             Intent intent = new Intent(getActivity(), DetailsActivity.class);
                             intent.putExtra(DetailFragment.POSITION, position);
                             intent.putExtra(DetailFragment.FRAGMENT_TYPE, "PopularFragment");

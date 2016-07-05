@@ -44,6 +44,7 @@ public class ReviewFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
+
         if (reviewList.size() > 0) {
             adapter.setReviewList(reviewList);
         } else {
@@ -53,6 +54,7 @@ public class ReviewFragment extends Fragment {
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 transaction.addToBackStack(null);
                 transaction.replace(R.id.right_container, noReviewsFragment);
+                getFragmentManager().popBackStackImmediate();
                 transaction.commit();
             } else {
                 Intent intent = new Intent(getActivity(), NoReviewsActivity.class);
@@ -70,7 +72,11 @@ public class ReviewFragment extends Fragment {
         ActionBar actionBar = getActivity().getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(movieTitle);
+
     }
+
+
+
 
 }
 

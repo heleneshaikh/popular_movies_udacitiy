@@ -29,7 +29,11 @@ public class DetailsActivity extends Activity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 
 }
 

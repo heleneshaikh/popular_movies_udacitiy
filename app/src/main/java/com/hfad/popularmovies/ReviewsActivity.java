@@ -42,11 +42,22 @@ public class ReviewsActivity extends Activity {
         setContentView(frameLayout, new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
-        ReviewFragment detailFragment = new ReviewFragment();
+        ReviewFragment reviewFragment = new ReviewFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.addToBackStack(null);
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        transaction.replace(R.id.review_frag_container, detailFragment);
+        transaction.replace(R.id.review_frag_container, reviewFragment);
         transaction.commit();
+
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        String title = getIntent().getStringExtra(TITLE);
+        actionBar.setTitle(title);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

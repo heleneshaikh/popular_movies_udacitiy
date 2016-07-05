@@ -2,6 +2,7 @@ package com.hfad.popularmovies;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -20,6 +21,12 @@ public class NoReviewsActivity extends Activity {
         transaction.addToBackStack(null);
         transaction.replace(R.id.no_reviews_container, noReviewsFragment);
         transaction.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.startActivity(new Intent(NoReviewsActivity.this, MainActivity.class));
     }
 
 

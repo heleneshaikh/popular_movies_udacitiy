@@ -6,8 +6,6 @@ import android.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
@@ -24,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.hfad.popularmovies.Database.MovieDatabaseHelper;
 import com.hfad.popularmovies.model.Movie;
 import com.hfad.popularmovies.model.MoviesAPI;
@@ -33,10 +30,8 @@ import com.hfad.popularmovies.model.ReviewResult;
 import com.hfad.popularmovies.model.Trailer;
 import com.hfad.popularmovies.model.TrailersResult;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -129,6 +124,9 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                             toast.show();
                         }
                     });
+                    break;
+
+
             }
         }
 
