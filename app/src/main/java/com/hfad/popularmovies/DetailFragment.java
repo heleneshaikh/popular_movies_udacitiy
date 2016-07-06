@@ -139,6 +139,11 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
         return scrollView;
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
     private void setData(ScrollView scrollView) {
         TextView title = (TextView) scrollView.findViewById(R.id.title);
         movieTitle = movie.getOriginal_title();
@@ -252,4 +257,6 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
     }
+
+
 }
