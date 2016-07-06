@@ -19,7 +19,7 @@
         jar="/Users/heleneshaikh/Documents/Android/Udacity/PopularMovies/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         revision="23.0.2"
-        sha1="4fd97ef7a362a2fe41dd7605d32b413b0befa6a1">
+        sha1="2b5f6acb94b2f5c05e74023146578b8524dd60c6">
         <dex dex="/Users/heleneshaikh/Documents/Android/Udacity/PopularMovies/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_5e35dd8be17e486b3ea72fb4a99ceb55d88908df/classes.dex" />
     </item>
     <item
@@ -51,10 +51,17 @@
         <dex dex="/Users/heleneshaikh/Documents/Android/Udacity/PopularMovies/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-23.3.0_d7d770c9db3c2487277f31adf35836d0145193c4/classes.dex" />
     </item>
     <item
+        jar="/Users/heleneshaikh/.gradle/caches/modules-2/files-2.1/org.greenrobot/eventbus/3.0.0/ddd99896e9569eaababbe81b35d80e1b91c4ad85/eventbus-3.0.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="ddd99896e9569eaababbe81b35d80e1b91c4ad85">
+        <dex dex="/Users/heleneshaikh/Documents/Android/Udacity/PopularMovies/app/build/intermediates/transforms/dex/debug/folders/1000/10/eventbus-3.0.0_fc36dc2fa681b0e836b305dd4a9c9cd3f4796411/classes.dex" />
+    </item>
+    <item
         jar="/Users/heleneshaikh/Documents/Android/Udacity/PopularMovies/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         revision="23.0.2"
-        sha1="e8a291b42e01997d590f9347e43baab802fce453">
+        sha1="ccf8315f6549f4451e86226aff112af03d9f8f2c">
         <dex dex="/Users/heleneshaikh/Documents/Android/Udacity/PopularMovies/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_25fdf8be6355f5faab17b303f8e975e3d459c356/classes.dex" />
     </item>
     <item
@@ -86,6 +93,13 @@
         <dex dex="/Users/heleneshaikh/Documents/Android/Udacity/PopularMovies/app/build/intermediates/transforms/dex/debug/folders/1000/10/gson-2.7_58fc27022be877713e8a94f7854cffeea8157646/classes.dex" />
     </item>
     <item
+        jar="/Users/heleneshaikh/.gradle/caches/modules-2/files-2.1/commons-cli/commons-cli/1.2/2bf96b7aa8b611c177d329452af1dc933e14501c/commons-cli-1.2.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="2bf96b7aa8b611c177d329452af1dc933e14501c">
+        <dex dex="/Users/heleneshaikh/Documents/Android/Udacity/PopularMovies/app/build/intermediates/transforms/dex/debug/folders/1000/10/commons-cli-1.2_76d6fbde5719623e2cb4ad169b68190511aedb6b/classes.dex" />
+    </item>
+    <item
         jar="/Users/heleneshaikh/Documents/Android/Udacity/PopularMovies/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.3.0/jars/classes.jar"
         jumboMode="true"
         revision="23.0.2"
@@ -93,11 +107,25 @@
         <dex dex="/Users/heleneshaikh/Documents/Android/Udacity/PopularMovies/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-cardview-v7-23.3.0_1ebd2bb71d5ee0e1f4d84c82a985180c03962d3e/classes.dex" />
     </item>
     <item
+        jar="/Users/heleneshaikh/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/2.0.1/516c03b21d50a644d538de0f0369c620989cd8f0/jsr305-2.0.1.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="516c03b21d50a644d538de0f0369c620989cd8f0">
+        <dex dex="/Users/heleneshaikh/Documents/Android/Udacity/PopularMovies/app/build/intermediates/transforms/dex/debug/folders/1000/10/jsr305-2.0.1_d3d1422950dac9363e46ffa4c2bf35f87052a7e4/classes.dex" />
+    </item>
+    <item
         jar="/Users/heleneshaikh/Documents/Android/Udacity/PopularMovies/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.3.0/jars/classes.jar"
         jumboMode="true"
         revision="23.0.2"
         sha1="8a034dd16c0dfd75fe86c52c2cd581592acc684a">
         <dex dex="/Users/heleneshaikh/Documents/Android/Udacity/PopularMovies/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-23.3.0_7fcf3cb14770576d0041c550645537f46e037117/classes.dex" />
+    </item>
+    <item
+        jar="/Users/heleneshaikh/.gradle/caches/modules-2/files-2.1/com.facebook.stetho/stetho/1.3.1/2c4076b466a0eb4d6ddf5721edd35cd1adc1f317/stetho-1.3.1.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="2c4076b466a0eb4d6ddf5721edd35cd1adc1f317">
+        <dex dex="/Users/heleneshaikh/Documents/Android/Udacity/PopularMovies/app/build/intermediates/transforms/dex/debug/folders/1000/10/stetho-1.3.1_acfd15113fbea95720e17813d3335118477d7bd9/classes.dex" />
     </item>
     <item
         jar="/Users/heleneshaikh/Documents/Android/Udacity/PopularMovies/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.3.0/jars/classes.jar"

@@ -2,6 +2,7 @@ package com.hfad.popularmovies;
 
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.content.Context;
@@ -22,7 +23,9 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.hfad.popularmovies.Database.MovieDatabaseHelper;
+import com.hfad.popularmovies.model.MessageEvent;
 import com.hfad.popularmovies.model.Movie;
 import com.hfad.popularmovies.model.MoviesAPI;
 import com.hfad.popularmovies.model.Review;
@@ -30,8 +33,12 @@ import com.hfad.popularmovies.model.ReviewResult;
 import com.hfad.popularmovies.model.Trailer;
 import com.hfad.popularmovies.model.TrailersResult;
 import com.squareup.picasso.Picasso;
+
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -88,6 +95,10 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                     movie = PopularFragment.movieList.get(position);
                     id = movie.getId();
                     setData(scrollView);
+                    // SENDER
+                    //onMessageEvent mainactivity will receive it
+                    //getDefault = receive EventBus, duw dit in bus
+                    EventBus.getDefault().post(new MessageEvent(position, fragmentType, id));
                     break;
 
                 case "TopRatedFragment":
@@ -116,6 +127,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                         public void onResponse(Call<Movie> call, Response<Movie> response) {
                             movie = response.body();
                             setData(scrollView);
+
                         }
 
                         @Override
