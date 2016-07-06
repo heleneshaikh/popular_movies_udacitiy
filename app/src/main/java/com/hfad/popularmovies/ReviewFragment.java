@@ -18,7 +18,6 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class ReviewFragment extends Fragment {
-    private static final String TAG = "app";
     private ReviewAdapter adapter;
     static final String TITLE = "title";
     String movieTitle;
@@ -62,9 +61,7 @@ public class ReviewFragment extends Fragment {
                 startActivity(intent);
             }
         }
-
         setActionBar();
-
         return recyclerView;
     }
 
@@ -72,12 +69,7 @@ public class ReviewFragment extends Fragment {
         ActionBar actionBar = getActivity().getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(movieTitle);
-
     }
-
-
-
-
 }
 
 

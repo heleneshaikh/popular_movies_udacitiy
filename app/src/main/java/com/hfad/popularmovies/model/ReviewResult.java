@@ -7,13 +7,9 @@ import java.util.List;
  */
 public class ReviewResult {
     private String id;
-
     private List<Review> results;
-
     private String page;
-
     private String total_pages;
-
     private String total_results;
 
     public String getId() {

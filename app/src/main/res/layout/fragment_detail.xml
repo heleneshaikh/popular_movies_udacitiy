@@ -44,7 +44,6 @@
             android:layout_toRightOf="@id/iv_details"
             android:textSize="40sp" />
 
-
         <TextView
             android:id="@+id/vote"
             android:layout_width="wrap_content"
@@ -107,7 +106,6 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/textColorSecondary" />
 
-        <!--change colour of icon-->
         <ImageView
             android:id="@+id/iv_trailer"
             android:layout_width="@dimen/trailer_icon"
@@ -116,8 +114,5 @@
             android:layout_below="@+id/tv_trailer"
             android:layout_marginBottom="15dp"
             android:src="@drawable/ic_ondemand_video_black_24dp" />
-
-
-
     </RelativeLayout>
 </ScrollView>

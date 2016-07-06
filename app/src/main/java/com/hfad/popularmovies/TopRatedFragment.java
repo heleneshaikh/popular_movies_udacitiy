@@ -1,27 +1,22 @@
 package com.hfad.popularmovies;
 
 
-import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.hfad.popularmovies.adapters.PosterAdapter;
 import com.hfad.popularmovies.model.MessageEvent;
 import com.hfad.popularmovies.model.Movie;
 import com.hfad.popularmovies.model.MoviesAPI;
 import com.hfad.popularmovies.model.QueryResult;
-
 import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
@@ -30,15 +25,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-
 /**
  * A simple {@link Fragment} subclass.
  */
 public class TopRatedFragment extends Fragment {
-
     private static final String ENDPOINT = "http://api.themoviedb.org/3/";
     private static final String API_KEY = "561825fba9c2d42683bcbbd5b12dbd1e";
-    private static final String TAG = "app";
     private PosterAdapter adapter;
     public static List<Movie> movieList;
 
@@ -62,7 +54,6 @@ public class TopRatedFragment extends Fragment {
             @Override
             public void onClick(int position) {
                 if (MainActivity.isDualPane) {
-                    //if tablet
                     Bundle bundle = new Bundle();
                     bundle.putInt(DetailFragment.POSITION, position);
                     bundle.putString(DetailFragment.FRAGMENT_TYPE, "TopRatedFragment");
@@ -75,7 +66,6 @@ public class TopRatedFragment extends Fragment {
                     transaction.replace(R.id.right_container, detailFragment, "detail_fragment");
                     transaction.commit();
                 } else {
-                    //if phone
                     Intent intent = new Intent(getActivity(), DetailsActivity.class);
                     intent.putExtra(DetailFragment.POSITION, position);
                     intent.putExtra(DetailFragment.FRAGMENT_TYPE, "TopRatedFragment");
@@ -100,7 +90,6 @@ public class TopRatedFragment extends Fragment {
                 QueryResult result = response.body();
                 movieList = result.getResults();
                 adapter.setMovieList(movieList);
-
                 EventBus.getDefault().post(new MessageEvent(0,"TopRatedFragment",0));
             }
 
@@ -111,5 +100,4 @@ public class TopRatedFragment extends Fragment {
             }
         });
     }
-
 }

@@ -4,11 +4,9 @@ import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 public class NoReviewsActivity extends Activity {
     static final String TITLE = "title";
-    private static final String TAG = "app";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +26,4 @@ public class NoReviewsActivity extends Activity {
         super.onBackPressed();
         this.startActivity(new Intent(NoReviewsActivity.this, MainActivity.class));
     }
-
-
 }

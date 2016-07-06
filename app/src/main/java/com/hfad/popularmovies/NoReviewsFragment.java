@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 
 public class NoReviewsFragment extends Fragment {
     static final String TITLE = "title";
-    private static final String TAG = "app";
     String movieTitle;
 
     public NoReviewsFragment() {
@@ -26,7 +25,6 @@ public class NoReviewsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         movieTitle = getActivity().getIntent().getStringExtra(TITLE);
-
         setActionBar();
     }
 

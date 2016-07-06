@@ -2,7 +2,6 @@ package com.hfad.popularmovies;
 
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.content.Context;
@@ -23,9 +22,7 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.hfad.popularmovies.Database.MovieDatabaseHelper;
-import com.hfad.popularmovies.model.MessageEvent;
 import com.hfad.popularmovies.model.Movie;
 import com.hfad.popularmovies.model.MoviesAPI;
 import com.hfad.popularmovies.model.Review;
@@ -33,12 +30,8 @@ import com.hfad.popularmovies.model.ReviewResult;
 import com.hfad.popularmovies.model.Trailer;
 import com.hfad.popularmovies.model.TrailersResult;
 import com.squareup.picasso.Picasso;
-
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,7 +47,6 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     static final String POSITION = "position";
     static final String FRAGMENT_TYPE = "fragment";
     static final String MOVIE_ID = "movieId";
-    private static final String TAG = "app";
     private Movie movie;
     private Context context;
     int id;
@@ -200,7 +192,6 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.btn_reviews:
-                Log.v(TAG, Integer.toString(R.id.btn_reviews));
                 retrofitCall();
                 reviewList = new ArrayList<>();
                 api.getReview(id, API_KEY).enqueue(new Callback<ReviewResult>() {

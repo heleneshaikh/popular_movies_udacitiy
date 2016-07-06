@@ -11,7 +11,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-
     <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/review_cardview"
@@ -24,7 +23,6 @@
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/background"
             android:orientation="vertical">
 
             <TextView
@@ -32,8 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:textStyle="bold|italic"
-                />
+                android:textStyle="bold|italic"/>
 
             <TextView
                 android:id="@+id/tv_review"
@@ -42,6 +39,5 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"/>
         </LinearLayout>
-
     </android.support.v7.widget.CardView>
 </LinearLayout>

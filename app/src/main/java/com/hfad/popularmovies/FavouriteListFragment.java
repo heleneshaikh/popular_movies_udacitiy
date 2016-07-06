@@ -30,7 +30,6 @@ public class FavouriteListFragment extends ListFragment {
     int movieId;
     CursorAdapter adapter;
 
-    //READ FROM DB
     public FavouriteListFragment() {
     }
 

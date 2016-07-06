@@ -1,10 +1,6 @@
 package com.hfad.popularmovies.model;
 
 
-import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
-
 /**
  * Created by heleneshaikh on 15/06/16.
  */

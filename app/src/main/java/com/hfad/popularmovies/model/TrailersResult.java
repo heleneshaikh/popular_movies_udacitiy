@@ -7,7 +7,6 @@ import java.util.List;
  */
 public class TrailersResult {
     private String id;
-
     private List<Trailer> results;
 
     public String getId() {

@@ -160,15 +160,17 @@ public class MainActivity extends Activity {
 
     @Subscribe
     public void onMessageEvent(MessageEvent event) {
-        DetailFragment detailFragment = new DetailFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString(DetailFragment.FRAGMENT_TYPE, event.fragmentType);
-        bundle.putInt(DetailFragment.POSITION, event.position);
-        detailFragment.setArguments(bundle);
+        if (MainActivity.isDualPane) {
+            DetailFragment detailFragment = new DetailFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString(DetailFragment.FRAGMENT_TYPE, event.fragmentType);
+            bundle.putInt(DetailFragment.POSITION, event.position);
+            detailFragment.setArguments(bundle);
 
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.right_container, detailFragment);
-        transaction.commit();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.right_container, detailFragment);
+            transaction.commit();
+        }
 
     }
 }

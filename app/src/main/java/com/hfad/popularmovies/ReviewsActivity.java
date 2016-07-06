@@ -3,33 +3,12 @@ package com.hfad.popularmovies;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.hfad.popularmovies.adapters.ReviewAdapter;
-import com.hfad.popularmovies.model.MoviesAPI;
-import com.hfad.popularmovies.model.Review;
-import com.hfad.popularmovies.model.ReviewResult;
-
-import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ReviewsActivity extends Activity {
     public static final String LIST = "";
-    public static ArrayList<Review> reviewList;
     final static String TITLE = "title";
 
     @Override

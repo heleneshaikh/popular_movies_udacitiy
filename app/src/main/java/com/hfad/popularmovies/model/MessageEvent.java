@@ -3,9 +3,7 @@ package com.hfad.popularmovies.model;
 /**
  * Created by heleneshaikh on 06/07/16.
  */
-public class MessageEvent { //EVENT
-
-    //will be set to subscriber
+public class MessageEvent {
     public final String fragmentType;
     public final int position;
     public final int id;

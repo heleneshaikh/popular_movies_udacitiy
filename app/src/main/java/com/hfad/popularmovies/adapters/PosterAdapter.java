@@ -8,14 +8,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
 import com.hfad.popularmovies.R;
 import com.hfad.popularmovies.model.Movie;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder> {
     private Listener listener;
