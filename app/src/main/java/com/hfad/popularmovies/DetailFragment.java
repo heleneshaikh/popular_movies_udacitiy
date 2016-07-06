@@ -95,8 +95,6 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                     movie = PopularFragment.movieList.get(position);
                     id = movie.getId();
                     setData(scrollView);
-                    // SENDER
-                    EventBus.getDefault().post(new MessageEvent(position, fragmentType, id));
                     break;
 
                 case "TopRatedFragment":
@@ -125,7 +123,6 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                         public void onResponse(Call<Movie> call, Response<Movie> response) {
                             movie = response.body();
                             setData(scrollView);
-
                         }
 
                         @Override

@@ -13,12 +13,16 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.hfad.popularmovies.adapters.PosterAdapter;
+import com.hfad.popularmovies.model.MessageEvent;
 import com.hfad.popularmovies.model.Movie;
 import com.hfad.popularmovies.model.MoviesAPI;
 import com.hfad.popularmovies.model.QueryResult;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,11 +50,35 @@ public class PopularFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_popular, container, false);
         adapter = new PosterAdapter(getActivity(), movieList);
         recyclerView.setAdapter(adapter);
+
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(layoutManager);
 
         getPopularMovies();
 
+        adapter.setListener(new PosterAdapter.Listener() {
+            @Override
+            public void onClick(int position) {
+                if (MainActivity.isDualPane) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(DetailFragment.POSITION, position);
+                    bundle.putString(DetailFragment.FRAGMENT_TYPE, "PopularFragment");
+                    Fragment detailFragment = new DetailFragment();
+                    detailFragment.setArguments(bundle);
+
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                    transaction.addToBackStack(null);
+                    transaction.replace(R.id.right_container, detailFragment);
+                    transaction.commit();
+                } else {
+                    Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                    intent.putExtra(DetailFragment.POSITION, position);
+                    intent.putExtra(DetailFragment.FRAGMENT_TYPE, "PopularFragment");
+                    getActivity().startActivity(intent);
+                }
+            }
+        });
         return recyclerView;
     }
 
@@ -68,29 +96,7 @@ public class PopularFragment extends Fragment {
                 movieList = result.getResults();
                 adapter.setMovieList(movieList);
 
-                adapter.setListener(new PosterAdapter.Listener(){
-                    @Override
-                    public void onClick(int position) {
-                        if (MainActivity.isDualPane) {
-                            Bundle bundle = new Bundle();
-                            bundle.putInt(DetailFragment.POSITION, position);
-                            bundle.putString(DetailFragment.FRAGMENT_TYPE, "PopularFragment");
-                            Fragment detailFragment = new DetailFragment();
-                            detailFragment.setArguments(bundle);
-
-                            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                            transaction.addToBackStack(null);
-                            transaction.replace(R.id.right_container, detailFragment);
-                            transaction.commit();
-                        } else {
-                            Intent intent = new Intent(getActivity(), DetailsActivity.class);
-                            intent.putExtra(DetailFragment.POSITION, position);
-                            intent.putExtra(DetailFragment.FRAGMENT_TYPE, "PopularFragment");
-                            getActivity().startActivity(intent);
-                        }
-                    }
-                });
+                EventBus.getDefault().post(new MessageEvent(0, "PopularFragment", 0));
             }
 
             @Override

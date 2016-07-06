@@ -15,9 +15,12 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.hfad.popularmovies.adapters.PosterAdapter;
+import com.hfad.popularmovies.model.MessageEvent;
 import com.hfad.popularmovies.model.Movie;
 import com.hfad.popularmovies.model.MoviesAPI;
 import com.hfad.popularmovies.model.QueryResult;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +51,6 @@ public class TopRatedFragment extends Fragment {
 
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_top_rated, container, false);
         adapter = new PosterAdapter(getActivity(), movieList);
-
         recyclerView.setAdapter(adapter);
 
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
@@ -98,6 +100,8 @@ public class TopRatedFragment extends Fragment {
                 QueryResult result = response.body();
                 movieList = result.getResults();
                 adapter.setMovieList(movieList);
+
+                EventBus.getDefault().post(new MessageEvent(0,"TopRatedFragment",0));
             }
 
             @Override
