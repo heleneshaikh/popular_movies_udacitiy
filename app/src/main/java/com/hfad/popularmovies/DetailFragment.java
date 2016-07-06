@@ -96,8 +96,6 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                     id = movie.getId();
                     setData(scrollView);
                     // SENDER
-                    //onMessageEvent mainactivity will receive it
-                    //getDefault = receive EventBus, duw dit in bus
                     EventBus.getDefault().post(new MessageEvent(position, fragmentType, id));
                     break;
 
