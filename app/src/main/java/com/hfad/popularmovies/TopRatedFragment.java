@@ -90,7 +90,7 @@ public class TopRatedFragment extends Fragment {
                 QueryResult result = response.body();
                 movieList = result.getResults();
                 adapter.setMovieList(movieList);
-                EventBus.getDefault().post(new MessageEvent(0,"TopRatedFragment",0));
+                EventBus.getDefault().post(new MessageEvent(0,"TopRatedFragment",0)); //SENDER
             }
 
             @Override

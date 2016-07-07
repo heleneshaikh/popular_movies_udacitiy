@@ -163,7 +163,7 @@ public class MainActivity extends Activity {
     }
 
     @Subscribe
-    public void onMessageEvent(MessageEvent event) {
+    public void onMessageEvent(MessageEvent event) { //RECEIVER
         if (MainActivity.isDualPane) {
             DetailFragment detailFragment = new DetailFragment();
             Bundle bundle = new Bundle();

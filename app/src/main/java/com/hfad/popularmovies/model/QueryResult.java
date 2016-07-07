@@ -7,11 +7,8 @@ import java.util.List;
  */
 public class QueryResult {
     private List<Movie> results;
-
     private String page;
-
     private String total_pages;
-
     private String total_results;
 
     public List<Movie> getResults() {

@@ -53,7 +53,6 @@ public class ReviewFragment extends Fragment {
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 transaction.addToBackStack(null);
                 transaction.replace(R.id.right_container, noReviewsFragment);
-                getFragmentManager().popBackStackImmediate();
                 transaction.commit();
             } else {
                 Intent intent = new Intent(getActivity(), NoReviewsActivity.class);

@@ -3,6 +3,7 @@ package com.hfad.popularmovies;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -37,6 +38,7 @@ public class ReviewsActivity extends Activity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        finish();
+        Intent intent  = new Intent(ReviewsActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 }
