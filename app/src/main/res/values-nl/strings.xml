@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">HMDB</string>
+    <string name="topRated">Best beoordeeld</string>
+    <string name="popular">Meest populair</string>
+    <string name="favourites">Mijn favorieten</string>
+    <string name="movie_poster">movie poster</string>
+    <string name="button_favourite">Voeg toe aan favorieten</string>
+    <string name="settings">settings</string>
+    <string name="trailers">Trailers:</string>
+    <string name="tv_trailer">Trailer:</string>
+    <string name="tv_reviews">Lees reviews</string>
+    <string name="no_reviews">Nog geen beoordelingen. Schrijf de eerste!</string>
+    <string name="ab_reviews">Reviews</string>
+    <string name="add_fav">Toegevoegd aan favorieten</string>
+    <string name="error">Er is een probleem opgetreden</string>
+    <string name="network_unavailable">Geen netwerkverbinding</string>
+    <string name="db_unavailable">Database onbeschikbaar</string>
+</resources>
