@@ -24,6 +24,6 @@ public class NoReviewsActivity extends Activity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        this.startActivity(new Intent(NoReviewsActivity.this, MainActivity.class));
+        finish();
     }
 }

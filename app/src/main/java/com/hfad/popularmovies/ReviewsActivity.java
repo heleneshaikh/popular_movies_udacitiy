@@ -38,7 +38,6 @@ public class ReviewsActivity extends Activity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent  = new Intent(ReviewsActivity.this, MainActivity.class);
-        startActivity(intent);
+        finish();
     }
 }
