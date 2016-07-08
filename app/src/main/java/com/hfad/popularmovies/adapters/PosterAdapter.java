@@ -57,6 +57,7 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder
     public void onBindViewHolder(PosterAdapter.ViewHolder holder, final int position) {
         Movie movie = movieList.get(position);
         final ImageView imageView = holder.imageView;
+        imageView.setContentDescription(movie.getOriginal_title());
 
         Picasso.with(context)
                 .load("https://image.tmdb.org/t/p/w185/" + movie.getPoster_path())

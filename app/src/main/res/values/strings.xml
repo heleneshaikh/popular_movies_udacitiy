@@ -8,9 +8,8 @@
     <string name="settings">settings</string>
     <string name="trailers">Trailers:</string>
     <string name="tv_trailer">Trailer:</string>
-    <string name="tv_reviews">Reviews</string>
+    <string name="tv_reviews">See Reviews</string>
     <string name="no_reviews">No reviews yet. Be the first to review!</string>
-    <string name="ab_reviews">Reviews</string>
     <string name="add_fav">Added to favourites</string>
     <string name="error">an error occurred</string>
     <string name="network_unavailable">Network unavailable</string>

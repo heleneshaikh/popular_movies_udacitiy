@@ -31,7 +31,7 @@
             android:layout_height="170dp"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/title"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="22dp"
             android:contentDescription="@string/movie_poster" />
 
@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/iv_details"
-            android:layout_marginLeft="40dp"
+            android:layout_marginStart="40dp"
             android:layout_toRightOf="@id/iv_details"
             android:textSize="40sp" />
 
@@ -48,9 +48,9 @@
             android:id="@+id/vote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/year"
+            android:layout_alignStart="@id/year"
             android:layout_below="@+id/year"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="32dp"
             android:layout_toEndOf="@+id/year"
             android:textStyle="bold" />
@@ -76,8 +76,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/iv_details"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="2dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="2dp"
             android:layout_marginTop="35dp"
             android:gravity="start"
             android:textAppearance="?android:attr/textAppearanceMedium"
