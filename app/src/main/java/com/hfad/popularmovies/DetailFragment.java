@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -22,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.hfad.popularmovies.Database.MovieDatabaseHelper;
 import com.hfad.popularmovies.model.Movie;
 import com.hfad.popularmovies.model.MoviesAPI;
@@ -30,8 +32,10 @@ import com.hfad.popularmovies.model.ReviewResult;
 import com.hfad.popularmovies.model.Trailer;
 import com.hfad.popularmovies.model.TrailersResult;
 import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,8 +46,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * A simple {@link Fragment} subclass.
  */
 public class DetailFragment extends Fragment implements View.OnClickListener {
-    private static final String ENDPOINT = "http://api.themoviedb.org/3/";
-    private static final String API_KEY = "561825fba9c2d42683bcbbd5b12dbd1e";
     static final String POSITION = "position";
     static final String FRAGMENT_TYPE = "fragment";
     static final String MOVIE_ID = "movieId";
@@ -72,29 +74,21 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
         if (MainActivity.isDualPane) {
             bundle = this.getArguments();
             fragmentType = bundle.getString(FRAGMENT_TYPE);
+            position = bundle.getInt(POSITION);
         } else {
             fragmentType = getActivity().getIntent().getStringExtra(FRAGMENT_TYPE);
+            position = (int) getActivity().getIntent().getExtras().get(POSITION);
         }
 
         if (fragmentType != null) {
             switch (fragmentType) {
                 case "PopularFragment":
-                    if (MainActivity.isDualPane) {
-                        position = bundle.getInt(POSITION);
-                    } else {
-                        position = (int) getActivity().getIntent().getExtras().get(POSITION);
-                    }
                     movie = PopularFragment.movieList.get(position);
                     id = movie.getId();
                     setData(scrollView);
                     break;
 
                 case "TopRatedFragment":
-                    if (MainActivity.isDualPane) {
-                        position = bundle.getInt(POSITION);
-                    } else {
-                        position = (int) getActivity().getIntent().getExtras().get(POSITION);
-                    }
                     movie = TopRatedFragment.movieList.get(position);
                     id = movie.getId();
                     setData(scrollView);
@@ -102,15 +96,12 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
 
                 case "FavouriteListFragment":
                     if (MainActivity.isDualPane) {
-                        Bundle bundle = this.getArguments();
-                        movieId = bundle.getInt(MOVIE_ID);
-                        id = movieId;
+                        id = bundle.getInt(MOVIE_ID);
                     } else {
-                        movieId = getActivity().getIntent().getExtras().getInt(MOVIE_ID);
-                        id = movieId;
+                        id = getActivity().getIntent().getExtras().getInt(MOVIE_ID);
                     }
                     retrofitCall();
-                    api.getMovies(movieId, API_KEY).enqueue(new Callback<Movie>() {
+                    api.getMovies(movieId, MainActivity.API_KEY).enqueue(new Callback<Movie>() {
                         @Override
                         public void onResponse(Call<Movie> call, Response<Movie> response) {
                             movie = response.body();
@@ -137,11 +128,6 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
         favouriteButton.setOnClickListener(this);
 
         return scrollView;
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
     }
 
     private void setData(ScrollView scrollView) {
@@ -176,7 +162,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
             case R.id.iv_trailer:
                 retrofitCall();
                 trailerList = new ArrayList<>();
-                api.getTrailers(id, API_KEY).enqueue(new Callback<TrailersResult>() {
+                api.getTrailers(id, MainActivity.API_KEY).enqueue(new Callback<TrailersResult>() {
                     @Override
                     public void onResponse(Call<TrailersResult> call, Response<TrailersResult> response) {
                         TrailersResult trailersResult = response.body();
@@ -187,7 +173,6 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(videoPath));
                         startActivity(intent);
                     }
-
                     @Override
                     public void onFailure(Call<TrailersResult> call, Throwable t) {
                         Toast toast = Toast.makeText(context, R.string.error, Toast.LENGTH_LONG);
@@ -199,7 +184,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
             case R.id.btn_reviews:
                 retrofitCall();
                 reviewList = new ArrayList<>();
-                api.getReview(id, API_KEY).enqueue(new Callback<ReviewResult>() {
+                api.getReview(id, MainActivity.API_KEY).enqueue(new Callback<ReviewResult>() {
                     @Override
                     public void onResponse(Call<ReviewResult> call, Response<ReviewResult> response) {
                         ReviewResult reviewResult = response.body();
@@ -247,16 +232,9 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
 
     public void retrofitCall() {
         retrofit = new Retrofit.Builder()
-                .baseUrl(ENDPOINT)
+                .baseUrl(MainActivity.ENDPOINT)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         api = retrofit.create(MoviesAPI.class);
     }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-
 }

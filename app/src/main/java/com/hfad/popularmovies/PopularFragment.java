@@ -34,9 +34,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * A simple {@link Fragment} subclass.
  */
 public class PopularFragment extends Fragment {
-    private static final String ENDPOINT = "http://api.themoviedb.org/3/";
-    private static final String API_KEY = "561825fba9c2d42683bcbbd5b12dbd1e";
-    public static List<Movie> movieList;
+    static List<Movie> movieList;
     private PosterAdapter adapter;
 
     public PopularFragment() {
@@ -48,14 +46,14 @@ public class PopularFragment extends Fragment {
 
         getActivity().getActionBar().setTitle(R.string.popular);
 
+        getPopularMovies();
+
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_popular, container, false);
         adapter = new PosterAdapter(getActivity(), movieList);
         recyclerView.setAdapter(adapter);
 
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(layoutManager);
-
-        getPopularMovies();
 
         adapter.setListener(new PosterAdapter.Listener() {
             @Override
@@ -85,12 +83,12 @@ public class PopularFragment extends Fragment {
 
     private void getPopularMovies() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ENDPOINT)
+                .baseUrl(MainActivity.ENDPOINT)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         MoviesAPI api = retrofit.create(MoviesAPI.class);
         movieList = new ArrayList<>();
-        api.getFeedPopular(API_KEY).enqueue(new Callback<QueryResult>() {
+        api.getFeedPopular(MainActivity.API_KEY).enqueue(new Callback<QueryResult>() {
             @Override
             public void onResponse(Call<QueryResult> call, Response<QueryResult> response) {
                 QueryResult result = response.body();
@@ -102,7 +100,7 @@ public class PopularFragment extends Fragment {
 
             @Override
             public void onFailure(Call<QueryResult> call, Throwable t) {
-                Toast toast = Toast.makeText(getActivity(), R.string.error, Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getActivity(), R.string.network_unavailable, Toast.LENGTH_SHORT);
                 toast.show();
             }
         });

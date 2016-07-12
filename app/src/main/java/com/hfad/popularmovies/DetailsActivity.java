@@ -5,10 +5,15 @@ import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ShareActionProvider;
 
 public class DetailsActivity extends Activity {
+    ShareActionProvider actionProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +31,18 @@ public class DetailsActivity extends Activity {
         transaction.replace(R.id.detail_frag_container, detailFragment);
         transaction.commit();
         getActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_details, menu);
+        MenuItem item = menu.findItem(R.id.action_share);
+        actionProvider = new ShareActionProvider(this);
+        actionProvider = (ShareActionProvider) item.getActionProvider();
+        Intent intent = new Intent(Intent.ACTION_SEND);
+//        intent.setType("text/plain");
+        actionProvider.setShareIntent(intent);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
