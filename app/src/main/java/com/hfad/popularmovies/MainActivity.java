@@ -19,12 +19,16 @@ import com.hfad.popularmovies.model.MessageEvent;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends Activity {
     static final String ENDPOINT = "http://api.themoviedb.org/3/";
     static final String API_KEY = "561825fba9c2d42683bcbbd5b12dbd1e";
     private Fragment popularFragment;
     private String title;
     static boolean isDualPane;
+    @BindView(R.id.right_container)View detailContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +37,8 @@ public class MainActivity extends Activity {
 
         Stetho.initializeWithDefaults(this);
 
-        View detailContainer = findViewById(R.id.right_container);
+        //View detailContainer = findViewById(R.id.right_container);
+        ButterKnife.bind(this);
         if (detailContainer != null && detailContainer.getVisibility() == View.VISIBLE) {
             isDualPane = true;
         }
@@ -154,8 +159,8 @@ public class MainActivity extends Activity {
         super.onStop();
     }
 
-    @Subscribe
-    public void onMessageEvent(MessageEvent event) { //RECEIVER
+    @Subscribe //GET TICKET FOR BUS
+    public void onMessageEvent(MessageEvent event) {
         if (MainActivity.isDualPane) {
             DetailFragment detailFragment = new DetailFragment();
             Bundle bundle = new Bundle();

@@ -36,6 +36,8 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -61,6 +63,9 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     Bundle bundle;
     int movieId;
     Retrofit retrofit;
+    @BindView(R.id.iv_trailer) ImageView imageView;
+    @BindView(R.id.btn_reviews) Button reviewButton;
+    @BindView(R.id.btn_favourite)  Button favouriteButton ;
 
     public DetailFragment() {
     }
@@ -70,6 +75,11 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
 
         final ScrollView scrollView = (ScrollView) inflater.inflate(R.layout.fragment_detail, container, false);
+
+        ButterKnife.bind(this, scrollView);
+        imageView.setOnClickListener(this);
+        reviewButton.setOnClickListener(this);
+        favouriteButton.setOnClickListener(this);
 
         if (MainActivity.isDualPane) {
             bundle = this.getArguments();
@@ -117,15 +127,6 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                     break;
             }
         }
-
-        ImageView imageView = (ImageView) scrollView.findViewById(R.id.iv_trailer);
-        imageView.setOnClickListener(this);
-
-        Button reviewButton = (Button) scrollView.findViewById(R.id.btn_reviews);
-        reviewButton.setOnClickListener(this);
-
-        Button favouriteButton = (Button) scrollView.findViewById(R.id.btn_favourite);
-        favouriteButton.setOnClickListener(this);
 
         return scrollView;
     }

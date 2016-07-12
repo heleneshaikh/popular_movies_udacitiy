@@ -11,14 +11,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import com.hfad.popularmovies.adapters.PosterAdapter;
 import com.hfad.popularmovies.model.MessageEvent;
 import com.hfad.popularmovies.model.Movie;
 import com.hfad.popularmovies.model.MoviesAPI;
 import com.hfad.popularmovies.model.QueryResult;
+
 import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -50,7 +54,7 @@ public class TopRatedFragment extends Fragment {
 
         getTopRatedMovies();
 
-        adapter.setListener(new PosterAdapter.Listener(){
+        adapter.setListener(new PosterAdapter.Listener() {
             @Override
             public void onClick(int position) {
                 if (MainActivity.isDualPane) {
@@ -90,7 +94,7 @@ public class TopRatedFragment extends Fragment {
                 QueryResult result = response.body();
                 movieList = result.getResults();
                 adapter.setMovieList(movieList);
-                EventBus.getDefault().post(new MessageEvent(0,"TopRatedFragment",0)); //SENDER
+                EventBus.getDefault().post(new MessageEvent(0, "TopRatedFragment", 0)); //OBJ PLACED IN BUS
             }
 
             @Override
