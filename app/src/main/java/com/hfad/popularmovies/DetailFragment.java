@@ -134,7 +134,6 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
             }
         }
 
-
         ButterKnife.bind(this, scrollView);
         imageView.setOnClickListener(this);
         reviewButton.setOnClickListener(this);
