@@ -8,6 +8,7 @@ import android.app.FragmentTransaction;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,7 +29,9 @@ public class MainActivity extends Activity {
     private Fragment popularFragment;
     private String title;
     static boolean isDualPane;
-    @BindView(R.id.right_container)View detailContainer;
+    @Nullable
+    @BindView(R.id.right_container)
+    View detailContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

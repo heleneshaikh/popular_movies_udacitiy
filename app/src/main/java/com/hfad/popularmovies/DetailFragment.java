@@ -38,6 +38,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,7 +48,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DetailFragment extends Fragment implements View.OnClickListener {
+public class DetailFragment extends Fragment {
     static final String POSITION = "position";
     static final String FRAGMENT_TYPE = "fragment";
     static final String MOVIE_ID = "movieId";
@@ -63,9 +64,12 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     Bundle bundle;
     int movieId;
     Retrofit retrofit;
-    @BindView(R.id.iv_trailer) ImageView imageView;
-    @BindView(R.id.btn_reviews) Button reviewButton;
-    @BindView(R.id.btn_favourite)  Button favouriteButton ;
+    @BindView(R.id.iv_trailer)
+    ImageView imageView;
+    @BindView(R.id.btn_reviews)
+    Button reviewButton;
+    @BindView(R.id.btn_favourite)
+    Button favouriteButton;
 
     public DetailFragment() {
     }
@@ -77,9 +81,10 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
         final ScrollView scrollView = (ScrollView) inflater.inflate(R.layout.fragment_detail, container, false);
 
         ButterKnife.bind(this, scrollView);
-        imageView.setOnClickListener(this);
-        reviewButton.setOnClickListener(this);
-        favouriteButton.setOnClickListener(this);
+
+//        imageView.setOnClickListener(this);
+//        reviewButton.setOnClickListener(this);
+//        favouriteButton.setOnClickListener(this);
 
         if (MainActivity.isDualPane) {
             bundle = this.getArguments();
@@ -157,78 +162,89 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
         actionBar.setTitle(movie.getOriginal_title());
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.iv_trailer:
-                retrofitCall();
-                trailerList = new ArrayList<>();
-                api.getTrailers(id, MainActivity.API_KEY).enqueue(new Callback<TrailersResult>() {
-                    @Override
-                    public void onResponse(Call<TrailersResult> call, Response<TrailersResult> response) {
-                        TrailersResult trailersResult = response.body();
-                        trailerList = trailersResult.getResults();
-                        String trailerKey = trailerList.iterator().next().getKey();
-                        String videoPath = "https://www.youtube.com/watch?v=" + trailerKey;
+    @OnClick(R.id.iv_trailer)
+    public void onTrailerClicked() {
+        reactTrailer();
+    }
 
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(videoPath));
-                        startActivity(intent);
-                    }
-                    @Override
-                    public void onFailure(Call<TrailersResult> call, Throwable t) {
-                        Toast toast = Toast.makeText(context, R.string.error, Toast.LENGTH_LONG);
-                        toast.show();
-                    }
-                });
-                break;
+    @OnClick(R.id.btn_reviews)
+    public void onReviewClicked() {
+        reactReviews();
+    }
 
-            case R.id.btn_reviews:
-                retrofitCall();
-                reviewList = new ArrayList<>();
-                api.getReview(id, MainActivity.API_KEY).enqueue(new Callback<ReviewResult>() {
-                    @Override
-                    public void onResponse(Call<ReviewResult> call, Response<ReviewResult> response) {
-                        ReviewResult reviewResult = response.body();
-                        reviewList = (ArrayList<Review>) reviewResult.getResults();
-                        if (MainActivity.isDualPane) {
-                            Bundle bundle = new Bundle();
-                            bundle.putParcelableArrayList(ReviewFragment.LIST, reviewList);
-                            ReviewFragment reviewFragment = new ReviewFragment();
-                            reviewFragment.setArguments(bundle);
-                            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                            transaction.replace(R.id.right_container, reviewFragment, "review_frag");
-                            transaction.addToBackStack(null);
-                            transaction.commit();
-                        } else {
-                            Intent intent = new Intent(getActivity(), ReviewsActivity.class);
-                            intent.putParcelableArrayListExtra(ReviewsActivity.LIST, reviewList);
-                            intent.putExtra(ReviewsActivity.TITLE, movieTitle);
-                            intent.putExtra(NoReviewsActivity.TITLE, movieTitle);
-                            startActivity(intent);
-                        }
-                    }
+    @OnClick(R.id.btn_favourite)
+    public void onFavouriteClicked() {
+        reactFavourite();
+    }
 
-                    @Override
-                    public void onFailure(Call<ReviewResult> call, Throwable t) {
-                        Toast toast = Toast.makeText(getActivity(), R.string.error, Toast.LENGTH_SHORT);
-                        toast.show();
-                    }
-                });
-                break;
+    public void reactTrailer() {
+        retrofitCall();
+        trailerList = new ArrayList<>();
+        api.getTrailers(id, MainActivity.API_KEY).enqueue(new Callback<TrailersResult>() {
+            @Override
+            public void onResponse(Call<TrailersResult> call, Response<TrailersResult> response) {
+                TrailersResult trailersResult = response.body();
+                trailerList = trailersResult.getResults();
+                String trailerKey = trailerList.iterator().next().getKey();
+                String videoPath = "https://www.youtube.com/watch?v=" + trailerKey;
 
-            case R.id.btn_favourite:
-                Toast toast = Toast.makeText(getActivity(), R.string.add_fav, Toast.LENGTH_LONG);
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(videoPath));
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(Call<TrailersResult> call, Throwable t) {
+                Toast toast = Toast.makeText(context, R.string.error, Toast.LENGTH_LONG);
                 toast.show();
-                SQLiteOpenHelper dbHelper = new MovieDatabaseHelper(getActivity());
-                SQLiteDatabase db = dbHelper.getWritableDatabase();
-                ContentValues contentValues = new ContentValues();
-                contentValues.put("MOVIE_ID", movie.getId());
-                contentValues.put("ORIGINAL_TITLE", movie.getOriginal_title());
-                db.insert("MOVIE", null, contentValues);
-                db.insertWithOnConflict("MOVIE", null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
-                break;
-        }
+            }
+        });
+    }
+
+    public void reactReviews() {
+        retrofitCall();
+        reviewList = new ArrayList<>();
+        api.getReview(id, MainActivity.API_KEY).enqueue(new Callback<ReviewResult>() {
+            @Override
+            public void onResponse(Call<ReviewResult> call, Response<ReviewResult> response) {
+                ReviewResult reviewResult = response.body();
+                reviewList = (ArrayList<Review>) reviewResult.getResults();
+                if (MainActivity.isDualPane) {
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelableArrayList(ReviewFragment.LIST, reviewList);
+                    ReviewFragment reviewFragment = new ReviewFragment();
+                    reviewFragment.setArguments(bundle);
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                    transaction.replace(R.id.right_container, reviewFragment, "review_frag");
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                } else {
+                    Intent intent = new Intent(getActivity(), ReviewsActivity.class);
+                    intent.putParcelableArrayListExtra(ReviewsActivity.LIST, reviewList);
+                    intent.putExtra(ReviewsActivity.TITLE, movieTitle);
+                    intent.putExtra(NoReviewsActivity.TITLE, movieTitle);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ReviewResult> call, Throwable t) {
+                Toast toast = Toast.makeText(getActivity(), R.string.error, Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
+
+    public void reactFavourite() {
+        Toast toast = Toast.makeText(getActivity(), R.string.add_fav, Toast.LENGTH_LONG);
+        toast.show();
+        SQLiteOpenHelper dbHelper = new MovieDatabaseHelper(getActivity());
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("MOVIE_ID", movie.getId());
+        contentValues.put("ORIGINAL_TITLE", movie.getOriginal_title());
+        db.insert("MOVIE", null, contentValues);
+        db.insertWithOnConflict("MOVIE", null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
     }
 
     public void retrofitCall() {
