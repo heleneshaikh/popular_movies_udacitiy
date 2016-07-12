@@ -11,11 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -33,9 +29,9 @@ import com.hfad.popularmovies.model.TrailersResult;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,7 +41,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DetailFragment extends Fragment implements View.OnClickListener {
+public class DetailFragment extends Fragment {
     private static final String ENDPOINT = "http://api.themoviedb.org/3/";
     private static final String API_KEY = "561825fba9c2d42683bcbbd5b12dbd1e";
     static final String POSITION = "position";
@@ -63,9 +59,12 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     Bundle bundle;
     int movieId;
     Retrofit retrofit;
-    @BindView(R.id.iv_trailer) ImageView imageView;
-    @BindView(R.id.btn_reviews) Button reviewButton;
-    @BindView(R.id.btn_favourite) Button favouriteButton;
+    @BindView(R.id.iv_trailer)
+    ImageView imageView;
+    @BindView(R.id.btn_reviews)
+    Button reviewButton;
+    @BindView(R.id.btn_favourite)
+    Button favouriteButton;
 
     public DetailFragment() {
     }
@@ -135,11 +134,92 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
         }
 
         ButterKnife.bind(this, scrollView);
-        imageView.setOnClickListener(this);
-        reviewButton.setOnClickListener(this);
-        favouriteButton.setOnClickListener(this);
-
         return scrollView;
+    }
+
+    @OnClick(R.id.iv_trailer)
+    public void onTrailerClicked () {
+        seeTrailers();
+    }
+
+    @OnClick(R.id.btn_reviews)
+    public void onReviewsClicked() {
+        seeReviews();
+    }
+
+    @OnClick(R.id.btn_favourite)
+    public void onFavouritesClicked() {
+        seeFavourites();
+    }
+
+    public void seeTrailers() {
+        retrofitCall();
+        trailerList = new ArrayList<>();
+        api.getTrailers(id, API_KEY).enqueue(new Callback<TrailersResult>() {
+            @Override
+            public void onResponse(Call<TrailersResult> call, Response<TrailersResult> response) {
+                TrailersResult trailersResult = response.body();
+                trailerList = trailersResult.getResults();
+                String trailerKey = trailerList.iterator().next().getKey();
+                String videoPath = "https://www.youtube.com/watch?v=" + trailerKey;
+
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(videoPath));
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(Call<TrailersResult> call, Throwable t) {
+                Toast toast = Toast.makeText(context, R.string.error, Toast.LENGTH_LONG);
+                toast.show();
+            }
+        });
+    }
+
+    private void seeReviews() {
+        retrofitCall();
+        reviewList = new ArrayList<>();
+        api.getReview(id, API_KEY).enqueue(new Callback<ReviewResult>() {
+            @Override
+            public void onResponse(Call<ReviewResult> call, Response<ReviewResult> response) {
+                ReviewResult reviewResult = response.body();
+                reviewList = (ArrayList<Review>) reviewResult.getResults();
+                if (MainActivity.isDualPane) {
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelableArrayList(ReviewFragment.LIST, reviewList);
+                    ReviewFragment reviewFragment = new ReviewFragment();
+                    reviewFragment.setArguments(bundle);
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                    transaction.replace(R.id.right_container, reviewFragment, "review_frag");
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                } else {
+                    Intent intent = new Intent(getActivity(), ReviewsActivity.class);
+                    intent.putParcelableArrayListExtra(ReviewsActivity.LIST, reviewList);
+                    intent.putExtra(ReviewsActivity.TITLE, movieTitle);
+                    intent.putExtra(NoReviewsActivity.TITLE, movieTitle);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ReviewResult> call, Throwable t) {
+                Toast toast = Toast.makeText(getActivity(), R.string.error, Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
+
+    private void seeFavourites() {
+        Toast toast = Toast.makeText(getActivity(), R.string.add_fav, Toast.LENGTH_LONG);
+        toast.show();
+        SQLiteOpenHelper dbHelper = new MovieDatabaseHelper(getActivity());
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("MOVIE_ID", movie.getId());
+        contentValues.put("ORIGINAL_TITLE", movie.getOriginal_title());
+        db.insert("MOVIE", null, contentValues);
+        db.insertWithOnConflict("MOVIE", null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
     }
 
     @Override
@@ -171,81 +251,6 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
         ActionBar actionBar = getActivity().getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(movie.getOriginal_title());
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.iv_trailer:
-                retrofitCall();
-                trailerList = new ArrayList<>();
-                api.getTrailers(id, API_KEY).enqueue(new Callback<TrailersResult>() {
-                    @Override
-                    public void onResponse(Call<TrailersResult> call, Response<TrailersResult> response) {
-                        TrailersResult trailersResult = response.body();
-                        trailerList = trailersResult.getResults();
-                        String trailerKey = trailerList.iterator().next().getKey();
-                        String videoPath = "https://www.youtube.com/watch?v=" + trailerKey;
-
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(videoPath));
-                        startActivity(intent);
-                    }
-
-                    @Override
-                    public void onFailure(Call<TrailersResult> call, Throwable t) {
-                        Toast toast = Toast.makeText(context, R.string.error, Toast.LENGTH_LONG);
-                        toast.show();
-                    }
-                });
-                break;
-
-            case R.id.btn_reviews:
-                retrofitCall();
-                reviewList = new ArrayList<>();
-                api.getReview(id, API_KEY).enqueue(new Callback<ReviewResult>() {
-                    @Override
-                    public void onResponse(Call<ReviewResult> call, Response<ReviewResult> response) {
-                        ReviewResult reviewResult = response.body();
-                        reviewList = (ArrayList<Review>) reviewResult.getResults();
-                        if (MainActivity.isDualPane) {
-                            Bundle bundle = new Bundle();
-                            bundle.putParcelableArrayList(ReviewFragment.LIST, reviewList);
-                            ReviewFragment reviewFragment = new ReviewFragment();
-                            reviewFragment.setArguments(bundle);
-                            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                            transaction.replace(R.id.right_container, reviewFragment, "review_frag");
-                            transaction.addToBackStack(null);
-                            transaction.commit();
-                        } else {
-                            Intent intent = new Intent(getActivity(), ReviewsActivity.class);
-                            intent.putParcelableArrayListExtra(ReviewsActivity.LIST, reviewList);
-                            intent.putExtra(ReviewsActivity.TITLE, movieTitle);
-                            intent.putExtra(NoReviewsActivity.TITLE, movieTitle);
-                            startActivity(intent);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ReviewResult> call, Throwable t) {
-                        Toast toast = Toast.makeText(getActivity(), R.string.error, Toast.LENGTH_SHORT);
-                        toast.show();
-                    }
-                });
-                break;
-
-            case R.id.btn_favourite:
-                Toast toast = Toast.makeText(getActivity(), R.string.add_fav, Toast.LENGTH_LONG);
-                toast.show();
-                SQLiteOpenHelper dbHelper = new MovieDatabaseHelper(getActivity());
-                SQLiteDatabase db = dbHelper.getWritableDatabase();
-                ContentValues contentValues = new ContentValues();
-                contentValues.put("MOVIE_ID", movie.getId());
-                contentValues.put("ORIGINAL_TITLE", movie.getOriginal_title());
-                db.insert("MOVIE", null, contentValues);
-                db.insertWithOnConflict("MOVIE", null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
-                break;
-        }
     }
 
     public void retrofitCall() {
