@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -32,6 +33,9 @@ import com.hfad.popularmovies.model.TrailersResult;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,6 +63,9 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     Bundle bundle;
     int movieId;
     Retrofit retrofit;
+    @BindView(R.id.iv_trailer) ImageView imageView;
+    @BindView(R.id.btn_reviews) Button reviewButton;
+    @BindView(R.id.btn_favourite) Button favouriteButton;
 
     public DetailFragment() {
     }
@@ -127,13 +134,10 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
             }
         }
 
-        ImageView imageView = (ImageView) scrollView.findViewById(R.id.iv_trailer);
+
+        ButterKnife.bind(this, scrollView);
         imageView.setOnClickListener(this);
-
-        Button reviewButton = (Button) scrollView.findViewById(R.id.btn_reviews);
         reviewButton.setOnClickListener(this);
-
-        Button favouriteButton = (Button) scrollView.findViewById(R.id.btn_favourite);
         favouriteButton.setOnClickListener(this);
 
         return scrollView;
@@ -252,11 +256,4 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                 .build();
         api = retrofit.create(MoviesAPI.class);
     }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-
 }

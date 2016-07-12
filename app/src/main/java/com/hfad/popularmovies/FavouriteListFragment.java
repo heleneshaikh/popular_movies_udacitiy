@@ -83,6 +83,7 @@ public class FavouriteListFragment extends ListFragment {
             bundle.putInt(DetailFragment.MOVIE_ID, movieId);
             bundle.putString(DetailFragment.FRAGMENT_TYPE, "FavouriteListFragment");
             detailFragment.setArguments(bundle);
+
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             transaction.addToBackStack(null);

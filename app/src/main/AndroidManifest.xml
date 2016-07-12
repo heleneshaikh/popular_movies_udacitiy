@@ -11,6 +11,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="49:2B:01:8D:72:A7:1F:01:1D:65:F7:B9:34:DB:F3:06:0F:7B:91:1A" />
         <activity android:name=".MainActivity" android:configChanges="orientation|screenSize|keyboardHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,5 +42,4 @@
                 android:value=".MainActivity" />
         </activity>
     </application>
-
 </manifest>
