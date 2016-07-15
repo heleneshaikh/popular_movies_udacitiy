@@ -6,4 +6,10 @@
     <dimen name="cards_margin">3dp</dimen>
     <dimen name="trailer_icon">70dp</dimen>
     <dimen name="btn_padding">5dp</dimen>
+
+    <!--
+Refer to App Widget Documentation for margin information
+http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
+    -->
+    <dimen name="widget_margin">8dp</dimen>
 </resources>
