@@ -53,6 +53,7 @@ public class SimpleWidgetProvider extends AppWidgetProvider {
             remoteViews.setImageViewUri(R.id.imageView, Uri.parse(videoPath));
 
             Intent intent = new Intent(context, SimpleWidgetProvider.class);
+
             intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
