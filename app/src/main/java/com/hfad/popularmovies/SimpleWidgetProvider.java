@@ -17,6 +17,7 @@ import com.hfad.popularmovies.model.MessageEvent;
 import com.hfad.popularmovies.model.Movie;
 import com.hfad.popularmovies.model.MoviesAPI;
 import com.hfad.popularmovies.model.QueryResult;
+import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -34,7 +35,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Implementation of App Widget functionality.
  */
 public class SimpleWidgetProvider extends AppWidgetProvider {
-//    /nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg
+    //    /nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
@@ -50,7 +51,9 @@ public class SimpleWidgetProvider extends AppWidgetProvider {
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                     R.layout.simple_widget);
             remoteViews.setTextViewText(R.id.textView, title);
-            remoteViews.setImageViewUri(R.id.imageView, Uri.parse(videoPath));
+            Picasso picasso = Picasso.with(context);
+            picasso.load(videoPath)
+                    .into(remoteViews, R.id.imageView, appWidgetIds);
 
             Intent intent = new Intent(context, SimpleWidgetProvider.class);
 
