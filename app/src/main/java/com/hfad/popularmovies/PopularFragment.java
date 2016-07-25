@@ -52,8 +52,7 @@ public class PopularFragment extends Fragment {
         adapter = new PosterAdapter(getActivity(), movieList);
         recyclerView.setAdapter(adapter);
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
         adapter.setListener(new PosterAdapter.Listener() {
             @Override

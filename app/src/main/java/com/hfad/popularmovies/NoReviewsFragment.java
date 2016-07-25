@@ -2,6 +2,8 @@ package com.hfad.popularmovies;
 
 
 import android.app.ActionBar;
+import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 public class NoReviewsFragment extends Fragment {
     static final String TITLE = "title";
     String movieTitle;
+    Context context;
 
     public NoReviewsFragment() {
     }

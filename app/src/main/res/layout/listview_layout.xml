@@ -6,7 +6,8 @@
     android:gravity="center_vertical"
     android:minHeight="?android:attr/listPreferredItemHeightSmall"
     android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
-    android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+    android:paddingRight="?android:attr/listPreferredItemPaddingEnd"
+    android:paddingLeft="?android:attr/listPreferredItemPaddingStart"
     android:textAppearance="?android:attr/textAppearanceLarge"
     android:textColor="@color/textColorSecondary"
     android:paddingTop="10dp"/>

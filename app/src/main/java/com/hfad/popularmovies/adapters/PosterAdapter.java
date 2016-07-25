@@ -8,6 +8,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.hfad.popularmovies.R;
 import com.hfad.popularmovies.model.Movie;
 import com.squareup.picasso.Picasso;
@@ -49,7 +51,8 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder
 
     @Override
     public PosterAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.poster_cardview, parent, false);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.poster_cardview, parent, false);
         return new ViewHolder(view);
     }
 

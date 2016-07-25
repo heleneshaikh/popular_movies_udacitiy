@@ -18,6 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="110dp"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:background="@color/dark_background"
@@ -30,8 +32,10 @@
             android:layout_width="140dp"
             android:layout_height="170dp"
             android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:layout_below="@+id/title"
             android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="22dp"
             android:contentDescription="@string/movie_poster" />
 
@@ -41,6 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/iv_details"
             android:layout_marginStart="40dp"
+            android:layout_marginLeft="40dp"
             android:layout_toRightOf="@id/iv_details"
             android:textSize="40sp" />
 
@@ -49,10 +54,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignStart="@id/year"
+            android:layout_alignLeft="@id/year"
             android:layout_below="@+id/year"
-            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="32dp"
             android:layout_toEndOf="@+id/year"
+            android:layout_toRightOf="@+id/year"
             android:textStyle="bold" />
 
         <Button
@@ -61,6 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/iv_details"
             android:layout_alignStart="@+id/year"
+            android:layout_alignLeft="@+id/year"
             android:background="@color/colorPrimary"
             android:lineSpacingExtra="2dp"
             android:minWidth="60dp"
@@ -74,10 +82,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:layout_below="@+id/iv_details"
             android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
             android:layout_marginTop="35dp"
             android:gravity="start"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -89,6 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/overview"
+            android:layout_alignLeft="@+id/overview"
             android:layout_below="@+id/overview"
             android:layout_marginTop="5dp"
             android:background="@color/colorPrimary"
@@ -100,6 +113,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/overview"
+            android:layout_alignLeft="@+id/overview"
             android:layout_below="@+id/overview"
             android:layout_marginTop="59dp"
             android:text="@string/trailers"
@@ -111,6 +125,7 @@
             android:layout_width="@dimen/trailer_icon"
             android:layout_height="@dimen/trailer_icon"
             android:layout_alignStart="@+id/tv_trailer"
+            android:layout_alignLeft="@+id/tv_trailer"
             android:layout_below="@+id/tv_trailer"
             android:layout_marginBottom="15dp"
             android:src="@drawable/ic_ondemand_video_black_24dp" />

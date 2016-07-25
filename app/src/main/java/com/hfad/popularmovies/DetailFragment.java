@@ -149,7 +149,7 @@ public class DetailFragment extends Fragment {
 
     @OnClick(R.id.btn_favourite)
     public void onFavouritesClicked() {
-        seeFavourites();
+        addFavourite();
     }
 
     public void seeTrailers() {
@@ -210,7 +210,7 @@ public class DetailFragment extends Fragment {
         });
     }
 
-    private void seeFavourites() {
+    private void addFavourite() {
         Toast toast = Toast.makeText(getActivity(), R.string.add_fav, Toast.LENGTH_LONG);
         toast.show();
         SQLiteOpenHelper dbHelper = new MovieDatabaseHelper(getActivity());
